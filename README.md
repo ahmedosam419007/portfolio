@@ -2,6 +2,8 @@
 
 الموقع الشخصي (Portfolio) بتاع أحمد أسام — صفحة واحدة بدون أي مكتبات خارجية (No frameworks, No build step)، بنسختين عربي/إنجليزي مع تبديل فوري (RTL)، وبتتنشر تلقائياً على **GitHub Pages** عن طريق **GitHub Actions**.
 
+**🔗 الموقع Live على:** https://ahmedosam419007.github.io/portfolio/
+
 ---
 
 ## 📁 الملفات

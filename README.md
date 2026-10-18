@@ -2,7 +2,7 @@
 
 الموقع الشخصي (Portfolio) بتاع أحمد أسام — صفحة واحدة بدون أي مكتبات خارجية (No frameworks, No build step)، بنسختين عربي/إنجليزي مع تبديل فوري (RTL)، وبتتنشر تلقائياً على **GitHub Pages** عن طريق **GitHub Actions**.
 
-**الموقع Live:** https://ahmedosam419007.github.io/portfolio/
+**الموقع Live:** https://ahmedosam.dev/
 
 ---
 
@@ -60,26 +60,26 @@ npx serve .
 3. من صفحة الريبو على GitHub: **Settings → Pages → Source: GitHub Actions**.
 4. خلاص — أي `push` على `main` هينشر الموقع تلقائياً.
 
-اللينك هيبقى: `https://ahmedosam419007.github.io/portfolio/`
+اللينك بقى: `https://ahmedosam.dev/` (واللينك القديم بيحوّل عليه تلقائياً)
 
 ---
 
-## ربط دومين مجاني (من GitHub Student Pack)
+## الدومين `ahmedosam.dev`
 
-1. اسحب عرض الـ Domain من [صفحة الـ benefits](https://github.com/settings/education/benefits)
-   (Namecheap `.me` أو `.TECH` أو Name.com `.dev`/`.app`).
-2. في الريبو: **Settings → Pages → Custom domain** واكتب الدومين.
-3. من لوحة تحكم الدومين أضف سجلات DNS:
+الموقع شغّال على دومين مخصص: **https://ahmedosam.dev/** — والدومين نفسه متسجل من **Name.com** بعرض GitHub Student Pack (سنة مجانية).
 
-   ```
-   A     @    185.199.108.153
-   A     @    185.199.109.153
-   A     @    185.199.110.153
-   A     @    185.199.111.153
-   CNAME www  ahmedosam419007.github.io
-   ```
+الـ DNS (على Name.com):
 
-4. فعّل **Enforce HTTPS** بعد ما الشهادة تجهز (بتاخد شوية وقت).
+```
+A     @    185.199.108.153
+A     @    185.199.109.153
+A     @    185.199.110.153
+A     @    185.199.111.153
+CNAME www  ahmedosam419007.github.io
+```
+
+- الشهادة (HTTPS) بتتولد تلقائياً من GitHub — و **Enforce HTTPS** مفعّل.
+- اللينك القديم `ahmedosam419007.github.io/portfolio` بيحوّل تلقائياً للدومين الجديد.
 
 ---
 

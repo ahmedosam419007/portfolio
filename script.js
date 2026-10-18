@@ -153,7 +153,7 @@
 
   /* ---------- active nav link while scrolling ---------- */
 
-  var sections = $$("main section[id]");
+  var sections = $$("section[id]");
   var anchors = $$("#navLinks a");
 
   if (sections.length && anchors.length && "IntersectionObserver" in window) {
@@ -279,9 +279,16 @@
   var holoSection = document.getElementById("hologram");
   var holoFrame = document.getElementById("holoFrame");
   var holoScan = document.getElementById("holoScan");
+  var holoScreen = document.querySelector(".holo-screen");
   var scrollTicking = false;
 
   if (holoFrame) holoFrame.style.setProperty("--holo-cut", "100%");
+
+  function setHoloView() {
+    if (holoScreen) holoScreen.style.setProperty("--holo-view", holoScreen.clientHeight + "px");
+  }
+
+  setHoloView();
 
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
 
@@ -322,7 +329,10 @@
   }
 
   window.addEventListener("scroll", requestScrollFrame, { passive: true });
-  window.addEventListener("resize", requestScrollFrame);
+  window.addEventListener("resize", function () {
+    setHoloView();
+    requestScrollFrame();
+  });
   scrollFrame();
 
   /* ---------- hologram pointer tilt ---------- */

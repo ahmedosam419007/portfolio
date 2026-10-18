@@ -34,7 +34,12 @@
       "alternateName": "أحمد أسام",
       "url": "https://ahmedosam.dev/",
       "jobTitle": "Software Engineer",
-      "sameAs": ["https://github.com/ahmedosam419007"],
+      "telephone": "+201090094561",
+      "sameAs": [
+        "https://github.com/ahmedosam419007",
+        "https://www.facebook.com/ahmed.osam.358437",
+        "https://www.instagram.com/ahmed.osam.358437"
+      ],
       "knowsAbout": ["Flutter", "Web Development", "Artificial Intelligence", "Embedded Systems"]
     }
   </script>
@@ -404,25 +409,33 @@
       </h2>
       <p class="holo-lead reveal">
         <span class="en">
-          VELORO's live site as an interactive hologram — scroll to turn it,
-          move your pointer to tilt it, and watch it get drawn in.
+          VELORO's live site inside an interactive hologram — it scrolls through
+          the whole page by itself, turns as you scroll, glows and floats in 3D.
         </span>
         <span class="ar">
-          موقع VELORO الحقيقي كمجسّم هولوجرام تفاعلي — اسكرول عشان تلفّه،
-          وحرّك الماوس عشان تميّله، وشوفه وهو بيرتسم قدامك.
+          موقع VELORO الحقيقي جوه هولوجرام تفاعلي — بيسكرول في الصفحة كلها لوحده،
+          وبيلف مع سكرولك، وبيطلع نور وبيطفو في الفضاء.
         </span>
       </p>
       <div class="holo-stage">
+        <span class="holo-halo" aria-hidden="true"></span>
+        <span class="holo-beam" aria-hidden="true"></span>
         <div class="holo-frame" id="holoFrame" aria-hidden="true">
-          <div class="holo-browser">
-            <div class="holo-bar">
-              <span class="holo-dot"></span><span class="holo-dot"></span><span class="holo-dot"></span>
-              <span class="holo-url">veloro.ahmed-osam419007.workers.dev</span>
-            </div>
-            <div class="holo-screen">
-              <img src="veloro-shot.jpg" alt="" loading="lazy" />
-              <span class="holo-scan" id="holoScan"></span>
-              <span class="holo-glow"></span>
+          <div class="holo-float">
+            <div class="holo-browser">
+              <div class="holo-bar">
+                <span class="holo-dot"></span><span class="holo-dot"></span><span class="holo-dot"></span>
+                <span class="holo-url">veloro.ahmed-osam419007.workers.dev</span>
+                <span class="holo-live"><span class="holo-live-dot"></span><span class="en">Live</span><span class="ar">مباشر</span></span>
+              </div>
+              <div class="holo-screen">
+                <div class="holo-page">
+                  <img src="veloro-live.jpg" alt="" loading="lazy" />
+                </div>
+                <span class="holo-sheen" aria-hidden="true"></span>
+                <span class="holo-scan" id="holoScan"></span>
+                <span class="holo-glow"></span>
+              </div>
             </div>
           </div>
           <span class="holo-base"></span>
@@ -437,7 +450,10 @@
         <span class="ar">الموقع الحقيقي: <a href="https://veloro.ahmed-osam419007.workers.dev/" target="_blank" rel="noopener">veloro.ahmed-osam419007.workers.dev</a></span>
       </p>
     </section>
+  </main>
 
+  <!-- ============ LIGHT CLOSING ZONE ============ -->
+  <div class="lightzone">
     <!-- ============ CONTACT ============ -->
     <section id="contact" class="section container">
       <div class="contact-card reveal">
@@ -459,21 +475,36 @@
           <a class="btn btn-primary" href="mailto:ahmed.osam419007@gmail.com">
             <span class="en">Email me</span><span class="ar">ابعتلي إيميل</span>
           </a>
-          <a class="btn btn-ghost" href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">GitHub</a>
-          <!-- LinkedIn: uncomment when ready
-          <a class="btn btn-ghost" href="https://www.linkedin.com/in/USERNAME/" target="_blank" rel="noopener">LinkedIn</a>
-          -->
+          <a class="btn btn-ghost btn-icon" href="https://wa.me/201090094561" target="_blank" rel="noopener">
+            <svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12.04 2.5a9.5 9.5 0 0 0-8.1 14.45L2.5 21.5l4.67-1.4a9.5 9.5 0 1 0 4.87-17.6Zm0 1.8a7.7 7.7 0 0 1 6.55 11.76l-.28.44.72 2.6-2.66-.8-.44.26A7.7 7.7 0 1 1 12.04 4.3Zm-2.8 3.5c-.2 0-.52.07-.8.37s-1.04 1-1.04 2.45 1.06 2.85 1.2 3.05 2.05 3.3 5.02 4.5c2.46.98 2.96.78 3.5.73.53-.05 1.72-.7 1.96-1.38.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34-.29-.15-1.72-.85-1.99-.95-.27-.1-.46-.15-.66.15-.2.29-.76.95-.93 1.15-.17.2-.34.22-.63.07a7.9 7.9 0 0 1-2.33-1.44 8.9 8.9 0 0 1-1.62-2.02c-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.5.15-.17.2-.29.29-.49.1-.2.05-.37-.02-.51-.07-.15-.66-1.58-.9-2.16-.24-.57-.48-.5-.66-.5h-.57Z"/></svg>
+            <span class="en">WhatsApp</span><span class="ar">واتساب</span>
+          </a>
+          <a class="btn btn-ghost btn-icon" href="tel:+201090094561">
+            <svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z"/></svg>
+            <span dir="ltr">0109 009 4561</span>
+          </a>
+        </div>
+        <div class="contact-social">
+          <a href="https://www.facebook.com/ahmed.osam.358437" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.52l.4-2.93H13.5V8.7c0-.85.24-1.43 1.46-1.43h1.56V4.65c-.27-.04-1.2-.12-2.28-.12-2.26 0-3.8 1.38-3.8 3.9v2.14H7.9v2.93h2.54V21h3.06Z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/ahmed.osam.358437" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.03 10.03 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/></svg>
+          </a>
         </div>
       </div>
     </section>
-  </main>
 
-  <footer class="footer container">
+    <footer class="footer container">
     <p>
       <span class="en">© <span id="year">2026</span> Ahmed Osam · Deployed with GitHub Actions</span>
       <span class="ar">© <span id="yearAr">2026</span> أحمد أسام · بيتم النشر بـ GitHub Actions</span>
     </p>
-  </footer>
+    </footer>
+  </div>
 
   <div class="cursor-robot" id="cursorRobot" aria-hidden="true">
     <svg viewBox="0 0 44 44" width="44" height="44" fill="none" aria-hidden="true">

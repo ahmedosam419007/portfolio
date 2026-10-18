@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ahmed Osama — Backend Developer &amp; AI Builder</title>
+  <meta name="description" content="Ahmed Osama — backend developer from Egypt. I build APIs, cloud functions and AI-powered developer tools with TypeScript, Node.js and Firebase." />
+  <meta name="theme-color" content="#070b16" />
+  <meta property="og:title" content="Ahmed Osama — Backend Developer &amp; AI Builder" />
+  <meta property="og:description" content="I build APIs, cloud functions and AI-powered developer tools." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#about">Skip to content</a>
+
+  <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <header class="header" id="header">
+    <div class="container nav">
+      <a class="logo" href="#top">ahmed<span>.dev</span></a>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost btn-sm" href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">GitHub ↗</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero container">
+      <div class="hero-content">
+        <p class="eyebrow reveal">👋 Hi, I'm</p>
+        <h1 class="reveal">Ahmed <span class="gradient-text">Osama</span></h1>
+        <h2 class="hero-sub reveal">
+          I build <span id="typed" class="gradient-text"></span><span class="caret" aria-hidden="true"></span>
+        </h2>
+        <p class="lead reveal">
+          A computer science student from Egypt who loves the backend side of things —
+          designing REST APIs, wiring up cloud functions, and building autonomous
+          AI-powered tools like <strong>CodePilot</strong>.
+        </p>
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href="#projects">See my work ↓</a>
+          <a class="btn btn-ghost" href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <ul class="hero-meta reveal">
+          <li>⚙️ Node.js &amp; TypeScript</li>
+          <li>☁️ Firebase</li>
+          <li>🤖 AI agents</li>
+        </ul>
+      </div>
+
+      <div class="hero-card reveal">
+        <div class="terminal">
+          <div class="terminal-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+          <pre><code><span class="t-prompt">$</span> whoami
+<span class="t-out">ahmed-osama · backend developer</span>
+
+<span class="t-prompt">$</span> cat stack.json
+<span class="t-out">{</span>
+  <span class="t-key">"runtime"</span>: <span class="t-str">"Node.js"</span>,
+  <span class="t-key">"language"</span>: <span class="t-str">"TypeScript"</span>,
+  <span class="t-key">"cloud"</span>: <span class="t-str">"Firebase"</span>,
+  <span class="t-key">"api"</span>: [<span class="t-str">"Express"</span>, <span class="t-str">"REST"</span>, <span class="t-str">"JWT"</span>]
+<span class="t-out">}</span>
+
+<span class="t-prompt">$</span> npm run ship
+<span class="t-ok">✔ deployed to GitHub Pages in 3.2s</span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="section container">
+      <h2 class="section-title reveal"><span class="num">01.</span> About me</h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            I'm a student developer focused on the backend: building APIs, authentication
+            flows and cloud services that are clean, tested and ready to grow.
+            I care about how systems are put together — not just that they work.
+          </p>
+          <p>
+            My current big project is <strong>CodePilot</strong>, an autonomous product
+            engineering system for Flutter apps. It follows an evidence-driven approach:
+            every capability has to prove itself through evaluation before it ships.
+          </p>
+          <ul class="facts">
+            <li>🎓 CS student</li>
+            <li>📍 Egypt</li>
+            <li>🧠 Backend &amp; cloud focus</li>
+            <li>🚀 Building CodePilot</li>
+            <li>🤝 Open to internships &amp; collabs</li>
+          </ul>
+        </div>
+
+        <aside class="about-card reveal">
+          <div class="avatar" aria-hidden="true">AO</div>
+          <p class="about-card-name">Ahmed Osama</p>
+          <p class="about-card-role">Backend Developer</p>
+          <ul class="about-card-list">
+            <li><span>Focus</span><strong>APIs · Cloud · AI tooling</strong></li>
+            <li><span>Stack</span><strong>TypeScript · Node.js · Firebase</strong></li>
+            <li><span>Status</span><strong class="status-dot">Open to work</strong></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section id="skills" class="section container">
+      <h2 class="section-title reveal"><span class="num">02.</span> Skills</h2>
+      <div class="skills-grid">
+        <article class="skill-card reveal">
+          <h3>💬 Languages</h3>
+          <ul><li>TypeScript</li><li>JavaScript</li><li>HTML5</li><li>CSS3</li></ul>
+        </article>
+        <article class="skill-card reveal">
+          <h3>🧩 Backend &amp; APIs</h3>
+          <ul><li>Node.js</li><li>Express</li><li>REST APIs</li><li>JWT &amp; OAuth</li><li>Zod</li></ul>
+        </article>
+        <article class="skill-card reveal">
+          <h3>☁️ Cloud &amp; Data</h3>
+          <ul><li>Firebase</li><li>Firestore</li><li>Cloud Functions</li></ul>
+        </article>
+        <article class="skill-card reveal">
+          <h3>🎨 Frontend &amp; Media</h3>
+          <ul><li>React</li><li>Tailwind CSS</li><li>Remotion</li></ul>
+        </article>
+        <article class="skill-card reveal">
+          <h3>🛠️ Tools &amp; Workflow</h3>
+          <ul><li>Git &amp; GitHub</li><li>GitHub Actions</li><li>VS Code</li><li>SSH</li></ul>
+        </article>
+        <article class="skill-card reveal">
+          <h3>🤖 AI &amp; Automation</h3>
+          <ul><li>AI agents</li><li>Local model runtimes</li><li>Prompt engineering</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects" class="section container">
+      <h2 class="section-title reveal"><span class="num">03.</span> Projects</h2>
+      <div class="projects-grid">
+        <article class="project-card reveal">
+          <div class="project-head">
+            <h3>CodePilot</h3>
+            <span class="badge">In progress</span>
+          </div>
+          <p>
+            An autonomous, evidence-driven engineering system for Flutter products:
+            multi-agent architecture with a task engine, job queue, checkpoints,
+            recovery and a local-first model runtime. It verifies itself instead of
+            trusting itself.
+          </p>
+          <ul class="tags"><li>TypeScript</li><li>AI Agents</li><li>Local LLMs</li><li>Flutter</li></ul>
+          <div class="project-links">
+            <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">View on GitHub ↗</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-head">
+            <h3>Admin Dashboard API</h3>
+            <span class="badge">Backend</span>
+          </div>
+          <p>
+            REST backend powering an admin dashboard: email + Google sign-in,
+            JWT access tokens, role-based access, Firebase Admin integration and
+            strict request validation with Zod.
+          </p>
+          <ul class="tags"><li>Express</li><li>TypeScript</li><li>Firebase</li><li>JWT</li><li>Zod</li></ul>
+          <div class="project-links">
+            <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">View on GitHub ↗</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-head">
+            <h3>Firebase App Suite</h3>
+            <span class="badge">Cloud</span>
+          </div>
+          <p>
+            A reusable Firebase foundation: Cloud Functions, Firestore security rules
+            with unit tests, and an animated analytics component built with
+            Remotion + Tailwind that renders geospatial data.
+          </p>
+          <ul class="tags"><li>Firebase</li><li>Cloud Functions</li><li>React</li><li>Remotion</li><li>Tailwind</li></ul>
+          <div class="project-links">
+            <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">View on GitHub ↗</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <div class="project-head">
+            <h3>This Portfolio</h3>
+            <span class="badge">Live</span>
+          </div>
+          <p>
+            A dependency-free single page — no frameworks, no build step.
+            Every push to <code>main</code> is deployed automatically to GitHub Pages
+            by a GitHub Actions pipeline.
+          </p>
+          <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>CI/CD</li></ul>
+          <div class="project-links">
+            <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">View source ↗</a>
+          </div>
+        </article>
+      </div>
+      <p class="more reveal">More experiments on <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">my GitHub ↗</a></p>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="section container">
+      <div class="contact-card reveal">
+        <h2>Let's build something together</h2>
+        <p>
+          I'm currently open to internships, freelance work and collaboration on
+          backend or AI tooling projects. The fastest way to reach me is email.
+        </p>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="mailto:ahmed.osam419007@gmail.com">✉️ Email me</a>
+          <a class="btn btn-ghost" href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <p>© <span id="year">2026</span> Ahmed Osama · Built with ☕ &amp; deployed via GitHub Actions</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

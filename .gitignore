@@ -1,0 +1,10 @@
+# OS / editor junk
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Logs
+*.log
+
+# Node (لو حبيت تضيف build step بعدين)
+node_modules/

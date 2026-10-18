@@ -27,7 +27,7 @@ jobs:
       - name: Prepare static files
         run: |
           mkdir -p dist
-          cp index.html style.css script.js favicon.svg avatar.jpg robots.txt sitemap.xml veloro-live.jpg dist/
+          cp index.html style.css script.js favicon.svg avatar.jpg robots.txt sitemap.xml veloro-live.jpg veloro-dark.jpg dist/
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

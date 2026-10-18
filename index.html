@@ -48,6 +48,7 @@
   <a class="skip-link" href="#about"><span class="en">Skip to content</span><span class="ar">تخطَّ إلى المحتوى</span></a>
 
   <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
+  <div class="bg-grid" id="bgGrid" aria-hidden="true"></div>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <header class="header" id="header">
@@ -409,36 +410,65 @@
       </h2>
       <p class="holo-lead reveal">
         <span class="en">
-          VELORO's live site inside an interactive hologram — it scrolls through
-          the whole page by itself, turns as you scroll, glows and floats in 3D.
+          VELORO's live site sealed inside a rotating glass prism — the dark hero
+          on the front, the light pages scrolling on the back, and a
+          projector-style power-on that settles before the tour begins.
         </span>
         <span class="ar">
-          موقع VELORO الحقيقي جوه هولوجرام تفاعلي — بيسكرول في الصفحة كلها لوحده،
-          وبيلف مع سكرولك، وبيطلع نور وبيطفو في الفضاء.
+          موقع VELORO الحقيقي جوه مجسم زجاجي بيلف — الوش الدارك قدام، والصفحات
+          اللايت بتسكرول ورا، وبيتشغّل زي البروجيكتور ويثبت قبل ما يبدأ يعرض.
         </span>
       </p>
-      <div class="holo-stage">
+      <div class="holo-stage" id="holoStage">
         <span class="holo-halo" aria-hidden="true"></span>
         <span class="holo-beam" aria-hidden="true"></span>
-        <div class="holo-frame" id="holoFrame" aria-hidden="true">
-          <div class="holo-float">
-            <div class="holo-browser">
-              <div class="holo-bar">
-                <span class="holo-dot"></span><span class="holo-dot"></span><span class="holo-dot"></span>
-                <span class="holo-url">veloro.ahmed-osam419007.workers.dev</span>
-                <span class="holo-live"><span class="holo-live-dot"></span><span class="en">Live</span><span class="ar">مباشر</span></span>
-              </div>
-              <div class="holo-screen">
-                <div class="holo-page">
-                  <img src="veloro-live.jpg" alt="" loading="lazy" />
+        <span class="holo-base" aria-hidden="true"></span>
+        <span class="holo-flash" aria-hidden="true"></span>
+        <div class="holo-orbit" id="holoFrame" aria-hidden="true">
+          <div class="holo-cube" id="holoCube">
+            <span class="holo-face holo-face--front"></span>
+            <span class="holo-face holo-face--back"></span>
+            <span class="holo-face holo-face--left"></span>
+            <span class="holo-face holo-face--right"></span>
+            <span class="holo-face holo-face--top"></span>
+            <span class="holo-face holo-face--bottom"></span>
+
+            <div class="holo-content holo-content--front">
+              <div class="holo-browser">
+                <div class="holo-bar">
+                  <span class="holo-dot"></span><span class="holo-dot"></span><span class="holo-dot"></span>
+                  <span class="holo-url">veloro.ahmed-osam419007.workers.dev</span>
+                  <span class="holo-live"><span class="holo-live-dot"></span><span class="en">Live</span><span class="ar">مباشر</span></span>
                 </div>
-                <span class="holo-sheen" aria-hidden="true"></span>
-                <span class="holo-scan" id="holoScan"></span>
-                <span class="holo-glow"></span>
+                <div class="holo-screen">
+                  <div class="holo-page holo-page--dark">
+                    <img src="veloro-dark.jpg" alt="" loading="lazy" />
+                  </div>
+                  <span class="holo-glow"></span>
+                  <span class="holo-sheen" aria-hidden="true"></span>
+                  <span class="holo-scan" aria-hidden="true"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="holo-content holo-content--back">
+              <div class="holo-browser">
+                <div class="holo-bar">
+                  <span class="holo-dot"></span><span class="holo-dot"></span><span class="holo-dot"></span>
+                  <span class="holo-url">veloro.ahmed-osam419007.workers.dev</span>
+                  <span class="holo-live"><span class="holo-live-dot"></span><span class="en">Live</span><span class="ar">مباشر</span></span>
+                </div>
+                <div class="holo-screen">
+                  <div class="holo-page holo-page--light">
+                    <img src="veloro-live.jpg" alt="" loading="lazy" />
+                  </div>
+                  <span class="holo-glow"></span>
+                  <span class="holo-sheen" aria-hidden="true"></span>
+                  <span class="holo-scan" aria-hidden="true"></span>
+                </div>
               </div>
             </div>
           </div>
-          <span class="holo-base"></span>
         </div>
         <div class="holo-dust" aria-hidden="true">
           <span></span><span></span><span></span><span></span><span></span>

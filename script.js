@@ -273,22 +273,149 @@
     });
   }
 
+  /* ---------- interactive background squares ---------- */
+
+  var bgGrid = document.getElementById("bgGrid");
+  var gridTiles = [];
+  var activeGridTile = null;
+  var gridCols = 0;
+  var gridRows = 0;
+  var gridSize = 56;
+  var gridGap = 12;
+  var gridPad = 16;
+
+  function buildGrid() {
+    if (!bgGrid) return;
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var size = w < 640 ? 44 : 56;
+    var gap = w < 640 ? 10 : 12;
+    var pad = 16;
+    var cols = Math.ceil((w - pad * 2 + gap) / (size + gap));
+    var rows = Math.ceil((h - pad * 2 + gap) / (size + gap));
+
+    gridSize = size;
+    gridGap = gap;
+    gridPad = pad;
+    gridCols = cols;
+    gridRows = rows;
+    bgGrid.style.gridTemplateColumns = "repeat(" + cols + ", " + size + "px)";
+    bgGrid.style.gridAutoRows = size + "px";
+    bgGrid.style.gap = gap + "px";
+    bgGrid.style.padding = pad + "px";
+
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < cols * rows; i++) {
+      var tile = document.createElement("span");
+      tile.className = "bg-sq";
+      frag.appendChild(tile);
+    }
+    bgGrid.innerHTML = "";
+    bgGrid.appendChild(frag);
+    gridTiles = bgGrid.children;
+    activeGridTile = null;
+  }
+
+  function lightTile(index) {
+    var tile = gridTiles[index];
+    if (!tile || tile === activeGridTile) return;
+    if (activeGridTile) activeGridTile.classList.remove("lit");
+    tile.classList.add("lit");
+    activeGridTile = tile;
+  }
+
+  function spark(x, y) {
+    if (!gridCols) return;
+    var r = bgGrid.getBoundingClientRect();
+    var innerW = gridCols * gridSize + (gridCols - 1) * gridGap;
+    var startX = r.left + gridPad + (r.width - gridPad * 2 - innerW) / 2;
+    var startY = r.top + gridPad;
+    var col = Math.floor((x - startX) / (gridSize + gridGap));
+    var row = Math.floor((y - startY) / (gridSize + gridGap));
+    if (col < 0 || row < 0 || col >= gridCols || row >= gridRows) return;
+    lightTile(row * gridCols + col);
+  }
+
+  buildGrid();
+
+  var gridRaf = false;
+  var gridX = 0;
+  var gridY = 0;
+
+  function queueSpark(x, y) {
+    gridX = x;
+    gridY = y;
+    if (gridRaf) return;
+    gridRaf = true;
+    window.requestAnimationFrame(function () {
+      gridRaf = false;
+      spark(gridX, gridY);
+    });
+  }
+
+  window.addEventListener("pointermove", function (e) {
+    if (e.pointerType && e.pointerType !== "mouse" && e.pointerType !== "pen") return;
+    queueSpark(e.clientX, e.clientY);
+  }, { passive: true });
+
+  window.addEventListener("pointerdown", function (e) {
+    spark(e.clientX, e.clientY);
+  }, { passive: true });
+
+  document.documentElement.addEventListener("mouseleave", function () {
+    if (!activeGridTile) return;
+    activeGridTile.classList.remove("lit");
+    activeGridTile = null;
+  });
+
+  var lastGridScroll = -1;
+
+  function scrollSpark() {
+    if (finePointer || !gridTiles.length) return;
+    var y = window.scrollY || root.scrollTop;
+    if (Math.abs(y - lastGridScroll) < 90) return;
+    lastGridScroll = y;
+    var seed = Math.floor(y / 90) * 37;
+    lightTile(seed % gridTiles.length);
+  }
+
+  var gridResizeTimer = null;
+  window.addEventListener("resize", function () {
+    if (gridResizeTimer) window.clearTimeout(gridResizeTimer);
+    gridResizeTimer = window.setTimeout(buildGrid, 180);
+  });
+
   /* ---------- scroll-driven camera + hologram ---------- */
 
   var hero = document.querySelector(".hero");
   var holoSection = document.getElementById("hologram");
   var holoFrame = document.getElementById("holoFrame");
-  var holoScan = document.getElementById("holoScan");
+  var holoStage = document.getElementById("holoStage");
+  var holoCube = document.getElementById("holoCube");
   var holoScreen = document.querySelector(".holo-screen");
+  var holoScans = document.querySelectorAll(".holo-scan");
   var scrollTicking = false;
 
   if (holoFrame) holoFrame.style.setProperty("--holo-cut", "100%");
 
   function setHoloView() {
-    if (holoScreen) holoScreen.style.setProperty("--holo-view", holoScreen.clientHeight + "px");
+    if (!holoCube) return;
+    holoCube.style.setProperty("--hl-w", holoCube.clientWidth + "px");
+    holoCube.style.setProperty("--hl-h", holoCube.clientHeight + "px");
+    if (holoScreen) holoCube.style.setProperty("--holo-view", holoScreen.clientHeight + "px");
   }
 
   setHoloView();
+
+  if (holoStage && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        holoStage.classList.toggle("in-view", entry.isIntersecting);
+      });
+    }, { threshold: 0.12 }).observe(holoStage);
+  } else if (holoStage) {
+    holoStage.classList.add("in-view");
+  }
 
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
 
@@ -307,18 +434,34 @@
       var rect = holoSection.getBoundingClientRect();
       var vh = window.innerHeight || root.clientHeight;
       var progress = clamp01((vh - rect.top) / (rect.height + vh));
-      var ry = -26 + progress * 52;
+      var ry = -14 + progress * 28;
 
       holoFrame.style.setProperty("--hry", ry.toFixed(2) + "deg");
 
-      var reveal = clamp01((vh - rect.top - rect.height * 0.1) / (vh * 1.02));
+      var reveal = clamp01((vh - rect.top - rect.height * 0.08) / (vh * 0.95));
       holoFrame.style.setProperty("--holo-cut", ((1 - reveal) * 100).toFixed(1) + "%");
 
-      if (holoScan) {
-        holoScan.style.top = (reveal * 100).toFixed(1) + "%";
-        holoScan.style.opacity = reveal > 0 && reveal < 1 ? "1" : "0";
+      for (var si = 0; si < holoScans.length; si++) {
+        holoScans[si].style.top = (reveal * 100).toFixed(1) + "%";
+        holoScans[si].style.opacity = reveal > 0 && reveal < 1 ? "1" : "0";
+      }
+
+      if (holoStage && !holoStage.classList.contains("is-lit")) {
+        var stageRect = holoStage.getBoundingClientRect();
+        if (stageRect.top < vh * 0.8 && stageRect.bottom > vh * 0.08) {
+          holoStage.classList.add("is-lit");
+          if (reduceMotion) {
+            holoStage.classList.add("is-scrolling");
+          } else {
+            window.setTimeout(function () {
+              if (holoStage) holoStage.classList.add("is-scrolling");
+            }, 4500);
+          }
+        }
       }
     }
+
+    scrollSpark();
   }
 
   function requestScrollFrame() {

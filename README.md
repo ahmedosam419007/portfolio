@@ -1,12 +1,12 @@
-# 🚀 Portfolio — Ahmed Osam
+# Portfolio — Ahmed Osam
 
 الموقع الشخصي (Portfolio) بتاع أحمد أسام — صفحة واحدة بدون أي مكتبات خارجية (No frameworks, No build step)، بنسختين عربي/إنجليزي مع تبديل فوري (RTL)، وبتتنشر تلقائياً على **GitHub Pages** عن طريق **GitHub Actions**.
 
-**🔗 الموقع Live على:** https://ahmedosam419007.github.io/portfolio/
+**الموقع Live:** https://ahmedosam419007.github.io/portfolio/
 
 ---
 
-## 📁 الملفات
+## الملفات
 
 | الملف | الوظيفة |
 |---|---|
@@ -19,7 +19,7 @@
 
 ---
 
-## ✏️ تعديل المحتوى
+## تعديل المحتوى
 
 - **النصوص والمشاريع:** افتح `index.html` وعدّل الأقسام مباشرة (كل قسم عليه كومنت واضح).
 - **الألوان:** كل الألوان في أول ملف `style.css` جوه `:root`.
@@ -34,7 +34,7 @@
 
 ---
 
-## 💻 تشغيله محلياً
+## تشغيله محلياً
 
 معندكش أي حاجة تعملها غير إنك تفتح `index.html` في المتصفح مباشرة. ولو عايز سيرفر محلي:
 
@@ -44,7 +44,7 @@ npx serve .
 
 ---
 
-## 🚀 النشر (GitHub Pages) — خطوة بخطوة أول مرة فقط
+## النشر (GitHub Pages) — خطوة بخطوة أول مرة فقط
 
 1. اعمل repository جديد على GitHub باسم `portfolio`.
 2. من داخل الفولدر ده:
@@ -58,13 +58,13 @@ npx serve .
    ```
 
 3. من صفحة الريبو على GitHub: **Settings → Pages → Source: GitHub Actions**.
-4. خلاص ✅ — أي `push` على `main` هينشر الموقع تلقائياً.
+4. خلاص — أي `push` على `main` هينشر الموقع تلقائياً.
 
 اللينك هيبقى: `https://ahmedosam419007.github.io/portfolio/`
 
 ---
 
-## 🌐 ربط دومين مجاني (من GitHub Student Pack)
+## ربط دومين مجاني (من GitHub Student Pack)
 
 1. اسحب عرض الـ Domain من [صفحة الـ benefits](https://github.com/settings/education/benefits)
    (Namecheap `.me` أو `.TECH` أو Name.com `.dev`/`.app`).
@@ -83,6 +83,6 @@ npx serve .
 
 ---
 
-## 🛠️ التقنيات
+## التقنيات
 
 HTML · CSS · JavaScript (Vanilla) · GitHub Actions · GitHub Pages

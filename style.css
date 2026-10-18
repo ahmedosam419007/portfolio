@@ -247,6 +247,7 @@ a { color: inherit; }
 
 .menu-btn {
   display: none;
+  place-items: center;
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text);
@@ -677,7 +678,7 @@ a { color: inherit; }
   .about-grid { grid-template-columns: 1fr; }
   .section { padding: 70px 0; }
 
-  .menu-btn { display: block; }
+  .menu-btn { display: grid; }
 
   .nav-links {
     position: fixed;

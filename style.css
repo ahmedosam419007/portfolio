@@ -992,14 +992,14 @@ a { color: inherit; }
   height: auto;
   will-change: transform;
 }
-.holo-page--dark img { transform: translateY(0); }
+.holo-page--dark img,
 .holo-page--light img { transform: translateY(0); }
-.holo-stage.is-scrolling .holo-page--light img {
-  animation: holoLightScroll 46s linear infinite;
+.holo-stage.is-scrolling .holo-page img {
+  animation: holoPageScroll 46s linear infinite;
   animation-play-state: paused;
 }
-.holo-stage.is-scrolling.in-view .holo-page--light img { animation-play-state: running; }
-@keyframes holoLightScroll {
+.holo-stage.is-scrolling.in-view .holo-page img { animation-play-state: running; }
+@keyframes holoPageScroll {
   0%, 7% { transform: translateY(0); opacity: 1; }
   75% { transform: translateY(calc(-100% + var(--holo-view, 100%))); opacity: 1; }
   79% { transform: translateY(calc(-100% + var(--holo-view, 100%))); opacity: 1; }

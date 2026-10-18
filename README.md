@@ -16,7 +16,7 @@
 | `favicon.svg` | أيقونة الموقع |
 | `avatar.jpg` | صورتك الشخصية (المقصوصة) — `avatar-full.jpg` نسخة كاملة احتياطية |
 | `veloro-live.jpg` | شريط صور موقع VELORO اللايت اللي بيسكرول جوه الهولوجرام |
-| `veloro-dark.jpg` | واجهة VELORO بالوضع الداكن اللي بتظهر على وش الهولوجرام |
+| `veloro-dark.jpg` | شريط صور موقع VELORO بالوضع الداكن اللي بيسكرول على وش الهولوجرام |
 | `.github/workflows/deploy-pages.yml` | بيبني وينشر الموقع تلقائياً على GitHub Pages |
 
 ---

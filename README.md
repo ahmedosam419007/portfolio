@@ -15,6 +15,7 @@
 | `script.js` | تبديل اللغة (عربي/إنجليزي + RTL)، الـ Typing effect، السكرول، القائمة في الموبايل |
 | `favicon.svg` | أيقونة الموقع |
 | `avatar.jpg` | صورتك الشخصية (المقصوصة) — `avatar-full.jpg` نسخة كاملة احتياطية |
+| `veloro-shot.jpg` | سكرين شوت موقع VELORO المستخدم في قسم الهولوجرام |
 | `.github/workflows/deploy-pages.yml` | بيبني وينشر الموقع تلقائياً على GitHub Pages |
 
 ---

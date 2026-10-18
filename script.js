@@ -168,3 +168,240 @@
     sections.forEach(function (s) { spy.observe(s); });
   }
 })();
+
+/* =========================================================
+   FX layer — robot cursor, 3D camera, hologram, ambient sound
+   ========================================================= */
+
+(function () {
+  "use strict";
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var root = document.documentElement;
+
+  /* ---------- robot cursor ---------- */
+
+  var robot = document.getElementById("cursorRobot");
+
+  if (robot && finePointer && !reduceMotion) {
+    root.classList.add("robot-cursor");
+
+    var rx = -100, ry = -100;
+    var tx = -100, ty = -100;
+    var rafId = null;
+    var robotIsActive = false;
+
+    function robotLoop() {
+      rx += (tx - rx) * 0.24;
+      ry += (ty - ry) * 0.24;
+      robot.style.transform = "translate3d(" + rx.toFixed(1) + "px," + ry.toFixed(1) + "px,0)";
+      rafId = window.requestAnimationFrame(robotLoop);
+    }
+
+    document.addEventListener("pointermove", function (e) {
+      tx = e.clientX - 22;
+      ty = e.clientY - 22;
+      robot.classList.add("visible");
+
+      var target = e.target;
+      var isActive = !!(target && target.closest && target.closest("a, button, .project-card, .skill-card, .holo-browser"));
+      if (isActive !== robotIsActive) {
+        robotIsActive = isActive;
+        robot.classList.toggle("is-active", isActive);
+      }
+    }, { passive: true });
+
+    document.addEventListener("pointerdown", function () {
+      robot.classList.add("is-down");
+    });
+    document.addEventListener("pointerup", function () {
+      robot.classList.remove("is-down");
+    });
+    document.documentElement.addEventListener("mouseleave", function () {
+      robot.classList.remove("visible");
+    });
+
+    rafId = window.requestAnimationFrame(robotLoop);
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) {
+        window.cancelAnimationFrame(rafId);
+        rafId = null;
+      } else if (!rafId) {
+        rafId = window.requestAnimationFrame(robotLoop);
+      }
+    });
+  }
+
+  /* ---------- hero editor tilt ---------- */
+
+  var heroWrap = document.querySelector(".hero-card");
+  var editor = document.querySelector(".hero-card .editor");
+
+  if (heroWrap && editor && finePointer && !reduceMotion) {
+    heroWrap.addEventListener("pointermove", function (e) {
+      var r = heroWrap.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      editor.style.transform =
+        "rotateX(" + (-py * 8).toFixed(2) + "deg) rotateY(" + (px * 10).toFixed(2) + "deg)";
+    });
+    heroWrap.addEventListener("pointerleave", function () {
+      editor.style.transform = "";
+    });
+  }
+
+  /* ---------- project cards: tilt + pointer glare ---------- */
+
+  if (finePointer && !reduceMotion) {
+    Array.prototype.forEach.call(document.querySelectorAll(".project-card"), function (card) {
+      card.addEventListener("pointermove", function (e) {
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.setProperty("--gx", ((px + 0.5) * 100).toFixed(1) + "%");
+        card.style.setProperty("--gy", ((py + 0.5) * 100).toFixed(1) + "%");
+        card.classList.add("is-tilting");
+        card.style.transform =
+          "perspective(900px) rotateX(" + (-py * 5).toFixed(2) + "deg) rotateY(" + (px * 6).toFixed(2) + "deg) translateY(-4px)";
+      });
+      card.addEventListener("pointerleave", function () {
+        card.classList.remove("is-tilting");
+        card.style.transform = "";
+      });
+    });
+  }
+
+  /* ---------- scroll-driven camera + hologram ---------- */
+
+  var hero = document.querySelector(".hero");
+  var holoSection = document.getElementById("hologram");
+  var holoFrame = document.getElementById("holoFrame");
+  var holoScan = document.getElementById("holoScan");
+  var scrollTicking = false;
+
+  if (holoFrame) holoFrame.style.setProperty("--holo-cut", "100%");
+
+  function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+
+  function scrollFrame() {
+    scrollTicking = false;
+    var y = window.scrollY || root.scrollTop;
+
+    root.style.setProperty("--sy", String(Math.round(y)));
+
+    if (hero && !reduceMotion && y < 1400) {
+      hero.style.transform = "translate3d(0," + (y * 0.055).toFixed(1) + "px,0)";
+      hero.style.opacity = String(1 - Math.min(y / 1200, 0.35));
+    }
+
+    if (holoSection && holoFrame) {
+      var rect = holoSection.getBoundingClientRect();
+      var vh = window.innerHeight || root.clientHeight;
+      var progress = clamp01((vh - rect.top) / (rect.height + vh));
+      var ry = -26 + progress * 52;
+
+      holoFrame.style.setProperty("--hry", ry.toFixed(2) + "deg");
+
+      var reveal = clamp01((vh - rect.top - rect.height * 0.1) / (vh * 1.02));
+      holoFrame.style.setProperty("--holo-cut", ((1 - reveal) * 100).toFixed(1) + "%");
+
+      if (holoScan) {
+        holoScan.style.top = (reveal * 100).toFixed(1) + "%";
+        holoScan.style.opacity = reveal > 0 && reveal < 1 ? "1" : "0";
+      }
+    }
+  }
+
+  function requestScrollFrame() {
+    if (!scrollTicking) {
+      scrollTicking = true;
+      window.requestAnimationFrame(scrollFrame);
+    }
+  }
+
+  window.addEventListener("scroll", requestScrollFrame, { passive: true });
+  window.addEventListener("resize", requestScrollFrame);
+  scrollFrame();
+
+  /* ---------- hologram pointer tilt ---------- */
+
+  if (holoSection && holoFrame && finePointer && !reduceMotion) {
+    holoSection.addEventListener("pointermove", function (e) {
+      var r = holoSection.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      holoFrame.style.setProperty("--hpx", (px * 9).toFixed(2) + "deg");
+      holoFrame.style.setProperty("--hpy", (-py * 7).toFixed(2) + "deg");
+    });
+    holoSection.addEventListener("pointerleave", function () {
+      holoFrame.style.setProperty("--hpx", "0deg");
+      holoFrame.style.setProperty("--hpy", "0deg");
+    });
+  }
+
+  /* ---------- ambient sound ---------- */
+
+  var soundBtn = document.getElementById("soundBtn");
+  var audioCtx = null;
+  var masterGain = null;
+  var soundOn = false;
+
+  function buildAudio() {
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return false;
+
+    audioCtx = new Ctx();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = 0;
+    masterGain.connect(audioCtx.destination);
+
+    var filter = audioCtx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = 520;
+    filter.Q.value = 0.7;
+    filter.connect(masterGain);
+
+    [110, 164.81, 220].forEach(function (freq, i) {
+      var osc = audioCtx.createOscillator();
+      osc.type = i === 2 ? "sine" : "triangle";
+      osc.frequency.value = freq;
+      osc.detune.value = i * 4;
+      var g = audioCtx.createGain();
+      g.gain.value = i === 0 ? 0.5 : i === 1 ? 0.34 : 0.22;
+      osc.connect(g);
+      g.connect(filter);
+      osc.start();
+    });
+
+    var lfo = audioCtx.createOscillator();
+    var lfoGain = audioCtx.createGain();
+    lfo.frequency.value = 0.06;
+    lfoGain.gain.value = 120;
+    lfo.connect(lfoGain);
+    lfoGain.connect(filter.frequency);
+    lfo.start();
+
+    return true;
+  }
+
+  function setSound(on) {
+    if (!audioCtx && !buildAudio()) return;
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    var t = audioCtx.currentTime;
+    masterGain.gain.cancelScheduledValues(t);
+    masterGain.gain.setTargetAtTime(on ? 0.05 : 0, t, 0.3);
+    soundOn = on;
+    if (soundBtn) soundBtn.setAttribute("aria-pressed", on ? "true" : "false");
+  }
+
+  if (soundBtn) {
+    soundBtn.addEventListener("click", function () { setSound(!soundOn); });
+    document.addEventListener("visibilitychange", function () {
+      if (!audioCtx) return;
+      if (document.hidden) audioCtx.suspend();
+      else if (soundOn) audioCtx.resume();
+    });
+  }
+})();

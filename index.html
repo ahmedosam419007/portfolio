@@ -52,6 +52,7 @@
         <a href="#about"><span class="en">About</span><span class="ar">نبذة</span></a>
         <a href="#skills"><span class="en">Skills</span><span class="ar">المهارات</span></a>
         <a href="#projects"><span class="en">Projects</span><span class="ar">المشاريع</span></a>
+        <a href="#hologram"><span class="en">Hologram</span><span class="ar">هولوجرام</span></a>
         <a href="#contact"><span class="en">Contact</span><span class="ar">تواصل</span></a>
       </nav>
       <div class="nav-actions">
@@ -372,22 +373,68 @@
           </div>
           <p>
             <span class="en">
-              A dependency-free single page — no frameworks, no build step. Fully
-              bilingual (English / Arabic with RTL) and deployed automatically to
-              GitHub Pages by a GitHub Actions pipeline.
+              A dependency-free single page — no frameworks, no build step.
+              Scroll-driven 3D camera moves and focus pulls, a holographic VELORO
+              showcase that turns as you scroll, pointer-tilt cards, a robot cursor
+              and optional ambient sound. Fully bilingual (English / Arabic with RTL)
+              and deployed automatically to GitHub Pages by a GitHub Actions pipeline.
             </span>
             <span class="ar">
               صفحة واحدة من غير أي مكتبات خارجية — مفيش frameworks ولا build step.
-              بنسختين كاملتين (عربي/إنجليزي مع RTL) وبتتنشر أوتوماتيك على GitHub Pages
-              بخط GitHub Actions.
+              كاميرا ثلاثية الأبعاد بتتحرك مع السكرول مع تأثيرات فوكس، وهولوجرام لموقع
+              VELORO بيلف وانت بتنزل، وكروت بتميل مع الماوس، وكرسور روبوت، وصوت
+              محيطي اختياري. بنسختين كاملتين (عربي/إنجليزي مع RTL) وبتتنشر أوتوماتيك
+              على GitHub Pages بخط GitHub Actions.
             </span>
           </p>
-          <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>CI/CD</li></ul>
+          <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>3D FX</li><li>CI/CD</li></ul>
         </article>
       </div>
       <p class="more reveal">
         <span class="en">More experiments on </span><span class="ar">تجارب أكتر على </span>
         <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </section>
+
+    <!-- ============ HOLOGRAM ============ -->
+    <section id="hologram" class="section container holo-section">
+      <h2 class="section-title reveal">
+        <span class="num">04.</span>
+        <span class="en">Hologram</span><span class="ar">هولوجرام</span>
+      </h2>
+      <p class="holo-lead reveal">
+        <span class="en">
+          VELORO's live site as an interactive hologram — scroll to turn it,
+          move your pointer to tilt it, and watch it get drawn in.
+        </span>
+        <span class="ar">
+          موقع VELORO الحقيقي كمجسّم هولوجرام تفاعلي — اسكرول عشان تلفّه،
+          وحرّك الماوس عشان تميّله، وشوفه وهو بيرتسم قدامك.
+        </span>
+      </p>
+      <div class="holo-stage">
+        <div class="holo-frame" id="holoFrame" aria-hidden="true">
+          <div class="holo-browser">
+            <div class="holo-bar">
+              <span class="holo-dot"></span><span class="holo-dot"></span><span class="holo-dot"></span>
+              <span class="holo-url">veloro.ahmed-osam419007.workers.dev</span>
+            </div>
+            <div class="holo-screen">
+              <img src="veloro-shot.jpg" alt="" loading="lazy" />
+              <span class="holo-scan" id="holoScan"></span>
+              <span class="holo-glow"></span>
+            </div>
+          </div>
+          <span class="holo-base"></span>
+        </div>
+        <div class="holo-dust" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <p class="holo-note">
+        <span class="en">Live site: <a href="https://veloro.ahmed-osam419007.workers.dev/" target="_blank" rel="noopener">veloro.ahmed-osam419007.workers.dev</a></span>
+        <span class="ar">الموقع الحقيقي: <a href="https://veloro.ahmed-osam419007.workers.dev/" target="_blank" rel="noopener">veloro.ahmed-osam419007.workers.dev</a></span>
       </p>
     </section>
 
@@ -427,6 +474,27 @@
       <span class="ar">© <span id="yearAr">2026</span> أحمد أسام · بيتم النشر بـ GitHub Actions</span>
     </p>
   </footer>
+
+  <div class="cursor-robot" id="cursorRobot" aria-hidden="true">
+    <svg viewBox="0 0 44 44" width="44" height="44" fill="none" aria-hidden="true">
+      <circle class="antenna-tip" cx="22" cy="4.6" r="2.2" />
+      <path class="antenna" d="M22 6.8V12" />
+      <rect class="head" x="9" y="12" width="26" height="20" rx="7" />
+      <circle class="eye" cx="16.5" cy="22" r="2.6" />
+      <circle class="eye" cx="27.5" cy="22" r="2.6" />
+      <path class="mouth" d="M18.5 27.5h7" />
+      <path class="ear" d="M8 20v4M36 20v4" />
+    </svg>
+  </div>
+
+  <button class="sound-btn" id="soundBtn" type="button" aria-pressed="false" aria-label="Toggle ambient sound" title="Ambient sound">
+    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M4 10v4h4l5 4V6l-5 4H4z" />
+      <path class="wave-1" d="M16.5 8.5a5 5 0 0 1 0 7" />
+      <path class="wave-2" d="M19 6a9 9 0 0 1 0 12" />
+    </svg>
+    <span class="en">Sound</span><span class="ar">صوت</span>
+  </button>
 
   <script src="script.js"></script>
 </body>

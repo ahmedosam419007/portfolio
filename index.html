@@ -1,19 +1,32 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr" data-lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ahmed Osama — Backend Developer &amp; AI Builder</title>
-  <meta name="description" content="Ahmed Osama — backend developer from Egypt. I build APIs, cloud functions and AI-powered developer tools with TypeScript, Node.js and Firebase." />
+  <title>Ahmed Osam — Software Engineer · Flutter, Web &amp; AI</title>
+  <meta name="description" content="Ahmed Osam — software engineer building Flutter apps, web experiences, AI-powered tools and embedded systems." />
   <meta name="theme-color" content="#070b16" />
-  <meta property="og:title" content="Ahmed Osama — Backend Developer &amp; AI Builder" />
-  <meta property="og:description" content="I build APIs, cloud functions and AI-powered developer tools." />
+  <meta property="og:title" content="Ahmed Osam — Software Engineer" />
+  <meta property="og:description" content="Flutter apps, web experiences, AI-powered tools and embedded systems." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="avatar.jpg" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
+  <script>
+    /* Apply saved language before first paint (avoid flash) */
+    (function () {
+      try {
+        var saved = localStorage.getItem("portfolio-lang") || "en";
+        var el = document.documentElement;
+        el.setAttribute("data-lang", saved);
+        el.setAttribute("lang", saved === "ar" ? "ar" : "en");
+        el.setAttribute("dir", saved === "ar" ? "rtl" : "ltr");
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
-  <a class="skip-link" href="#about">Skip to content</a>
+  <a class="skip-link" href="#about"><span class="en">Skip to content</span><span class="ar">تخطَّ إلى المحتوى</span></a>
 
   <div class="bg-glow" aria-hidden="true"><span></span><span></span></div>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
@@ -22,12 +35,13 @@
     <div class="container nav">
       <a class="logo" href="#top">ahmed<span>.dev</span></a>
       <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+        <a href="#about"><span class="en">About</span><span class="ar">نبذة</span></a>
+        <a href="#skills"><span class="en">Skills</span><span class="ar">المهارات</span></a>
+        <a href="#projects"><span class="en">Projects</span><span class="ar">المشاريع</span></a>
+        <a href="#contact"><span class="en">Contact</span><span class="ar">تواصل</span></a>
       </nav>
       <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm lang-btn" id="langBtn" type="button" aria-label="Switch language">عربي</button>
         <a class="btn btn-ghost btn-sm" href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">GitHub ↗</a>
         <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
       </div>
@@ -38,79 +52,134 @@
     <!-- ============ HERO ============ -->
     <section class="hero container">
       <div class="hero-content">
-        <p class="eyebrow reveal">👋 Hi, I'm</p>
-        <h1 class="reveal">Ahmed <span class="gradient-text">Osama</span></h1>
+        <p class="eyebrow reveal">
+          <span class="en">👋 Hi, I'm</span>
+          <span class="ar">👋 أهلاً، أنا</span>
+        </p>
+        <h1 class="reveal">
+          <span class="en">Ahmed <span class="gradient-text">Osam</span></span>
+          <span class="ar">أحمد <span class="gradient-text">أسام</span></span>
+        </h1>
         <h2 class="hero-sub reveal">
-          I build <span id="typed" class="gradient-text"></span><span class="caret" aria-hidden="true"></span>
+          <span class="en">I build </span>
+          <span class="ar">أبني </span>
+          <span id="typed" class="gradient-text"></span><span class="caret" aria-hidden="true"></span>
         </h2>
         <p class="lead reveal">
-          A computer science student from Egypt who loves the backend side of things —
-          designing REST APIs, wiring up cloud functions, and building autonomous
-          AI-powered tools like <strong>CodePilot</strong>.
+          <span class="en">
+            A software engineering student who loves turning ideas into real products —
+            <strong>Flutter</strong> apps, interactive <strong>web</strong> experiences and
+            <strong>AI</strong>-powered tools. I also enjoy going low-level with
+            <strong>embedded systems</strong>: where software meets hardware.
+          </span>
+          <span class="ar">
+            طالب هندسة برمجيات بيحب يحوّل الأفكار لمنتجات حقيقية — تطبيقات
+            <strong>فلاتر</strong>، تجارب <strong>ويب</strong> تفاعلية، وأدوات مدعومة
+            بال<strong>ذكاء الاصطناعي</strong>. وكمان بيحب ينزل للمستوى الأدنى مع
+            <strong>الأنظمة المدمجة</strong>: المكان اللي البرمجيات بتقابل فيه الهاردوير.
+          </span>
         </p>
         <div class="hero-actions reveal">
-          <a class="btn btn-primary" href="#projects">See my work ↓</a>
+          <a class="btn btn-primary" href="#projects"><span class="en">See my work ↓</span><span class="ar">شوف شغلي ↓</span></a>
           <a class="btn btn-ghost" href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">GitHub ↗</a>
         </div>
         <ul class="hero-meta reveal">
-          <li>⚙️ Node.js &amp; TypeScript</li>
-          <li>☁️ Firebase</li>
-          <li>🤖 AI agents</li>
+          <li><span class="en">📱 Flutter &amp; Dart</span><span class="ar">📱 فلاتر ودارت</span></li>
+          <li><span class="en">🌐 Web</span><span class="ar">🌐 ويب</span></li>
+          <li><span class="en">🤖 AI &amp; ML</span><span class="ar">🤖 ذكاء اصطناعي وتعلّم الآلة</span></li>
+          <li><span class="en">🔌 Embedded</span><span class="ar">🔌 أنظمة مدمجة</span></li>
         </ul>
       </div>
 
       <div class="hero-card reveal">
-        <div class="terminal">
-          <div class="terminal-bar" aria-hidden="true"><span></span><span></span><span></span></div>
-          <pre><code><span class="t-prompt">$</span> whoami
-<span class="t-out">ahmed-osama · backend developer</span>
+        <div class="editor" dir="ltr">
+          <div class="editor-bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="file-label">main.dart</span>
+          </div>
+          <pre><code><span class="c-cm">// building something great, one commit at a time</span>
+<span class="c-kw">class</span> <span class="c-cls">AhmedOsam</span> <span class="c-kw">extends</span> <span class="c-cls">SoftwareEngineer</span> {
+  <span class="c-kw">final</span> focus = <span class="c-kw">const</span> [
+    <span class="c-cls">Skill</span>.flutter, <span class="c-cls">Skill</span>.web,
+    <span class="c-cls">Skill</span>.ai, <span class="c-cls">Skill</span>.embedded,
+  ];
 
-<span class="t-prompt">$</span> cat stack.json
-<span class="t-out">{</span>
-  <span class="t-key">"runtime"</span>: <span class="t-str">"Node.js"</span>,
-  <span class="t-key">"language"</span>: <span class="t-str">"TypeScript"</span>,
-  <span class="t-key">"cloud"</span>: <span class="t-str">"Firebase"</span>,
-  <span class="t-key">"api"</span>: [<span class="t-str">"Express"</span>, <span class="t-str">"REST"</span>, <span class="t-str">"JWT"</span>]
-<span class="t-out">}</span>
-
-<span class="t-prompt">$</span> npm run ship
-<span class="t-ok">✔ deployed to GitHub Pages in 3.2s</span></code></pre>
+  <span class="c-typ">Future</span>&lt;<span class="c-cls">Product</span>&gt; <span class="c-fn">build</span>(<span class="c-cls">Idea</span> idea) <span class="c-kw">async</span> {
+    <span class="c-kw">final</span> design = <span class="c-kw">await</span> <span class="c-fn">craft</span>(idea);
+    <span class="c-kw">return</span> <span class="c-fn">ship</span>(design);
+  }
+}</code></pre>
         </div>
       </div>
     </section>
 
     <!-- ============ ABOUT ============ -->
     <section id="about" class="section container">
-      <h2 class="section-title reveal"><span class="num">01.</span> About me</h2>
+      <h2 class="section-title reveal">
+        <span class="num">01.</span>
+        <span class="en">About me</span><span class="ar">نبذة عني</span>
+      </h2>
       <div class="about-grid">
         <div class="about-text reveal">
           <p>
-            I'm a student developer focused on the backend: building APIs, authentication
-            flows and cloud services that are clean, tested and ready to grow.
-            I care about how systems are put together — not just that they work.
+            <span class="en">
+              I'm a student software engineer focused on building real, usable products:
+              mobile apps with Flutter, modern web interfaces, and AI-powered developer
+              tools. I care about clean architecture and about how systems are put
+              together — not just that they work.
+            </span>
+            <span class="ar">
+              أنا طالب هندسة برمجيات بتركيز على بناء منتجات حقيقية قابلة للاستخدام:
+              تطبيقات موبايل بفلاتر، واجهات ويب حديثة، وأدوات مدعومة بالذكاء الاصطناعي.
+              بيهمني المعمارية النظيفة وإزاي الأنظمة متجمّعة — مش بس إنها تشتغل.
+            </span>
           </p>
           <p>
-            My current big project is <strong>CodePilot</strong>, an autonomous product
-            engineering system for Flutter apps. It follows an evidence-driven approach:
-            every capability has to prove itself through evaluation before it ships.
+            <span class="en">
+              My current big project is <strong>CodePilot</strong>, an autonomous product
+              engineering system for Flutter apps. It follows an evidence-driven
+              approach: every capability has to prove itself through evaluation before
+              it ships.
+            </span>
+            <span class="ar">
+              مشروعي الكبير الحالي هو <strong>CodePilot</strong>، نظام هندسة منتجات
+              أوتوماتيكي لتطبيقات فلاتر. بيعتمد على منهج قائم على الأدلة: كل قدرة لازم
+              تثبت نفسها بالتقييم قبل ما تُصدَّر.
+            </span>
           </p>
           <ul class="facts">
-            <li>🎓 CS student</li>
-            <li>📍 Egypt</li>
-            <li>🧠 Backend &amp; cloud focus</li>
-            <li>🚀 Building CodePilot</li>
-            <li>🤝 Open to internships &amp; collabs</li>
+            <li><span class="en">🎓 Software engineering student</span><span class="ar">🎓 طالب هندسة برمجيات</span></li>
+            <li><span class="en">📍 Egypt</span><span class="ar">📍 مصر</span></li>
+            <li><span class="en">📱 Flutter &amp; Web</span><span class="ar">📱 فلاتر وويب</span></li>
+            <li><span class="en">🤖 AI &amp; ML</span><span class="ar">🤖 ذكاء اصطناعي وتعلّم الآلة</span></li>
+            <li><span class="en">🔌 Embedded systems</span><span class="ar">🔌 أنظمة مدمجة</span></li>
+            <li><span class="en">🤝 Open to internships &amp; collabs</span><span class="ar">🤝 متاح للتدريب والتعاون</span></li>
           </ul>
         </div>
 
         <aside class="about-card reveal">
-          <div class="avatar" aria-hidden="true">AO</div>
-          <p class="about-card-name">Ahmed Osama</p>
-          <p class="about-card-role">Backend Developer</p>
+          <div class="avatar">
+            <img src="avatar.jpg" alt="Ahmed Osam" />
+          </div>
+          <p class="about-card-name">
+            <span class="en">Ahmed Osam</span><span class="ar">أحمد أسام</span>
+          </p>
+          <p class="about-card-role">
+            <span class="en">Software Engineer</span><span class="ar">مهندس برمجيات</span>
+          </p>
           <ul class="about-card-list">
-            <li><span>Focus</span><strong>APIs · Cloud · AI tooling</strong></li>
-            <li><span>Stack</span><strong>TypeScript · Node.js · Firebase</strong></li>
-            <li><span>Status</span><strong class="status-dot">Open to work</strong></li>
+            <li>
+              <span><span class="en">Focus</span><span class="ar">التركيز</span></span>
+              <strong><span class="en">Flutter · Web · AI</span><span class="ar">فلاتر · ويب · AI</span></strong>
+            </li>
+            <li>
+              <span><span class="en">Learning</span><span class="ar">بتعلّم</span></span>
+              <strong><span class="en">Embedded systems &amp; ML</span><span class="ar">أنظمة مدمجة وتعلّم الآلة</span></strong>
+            </li>
+            <li>
+              <span><span class="en">Status</span><span class="ar">الحالة</span></span>
+              <strong class="status-dot"><span class="en">Open to work</span><span class="ar">متاح للعمل</span></strong>
+            </li>
           </ul>
         </aside>
       </div>
@@ -118,125 +187,174 @@
 
     <!-- ============ SKILLS ============ -->
     <section id="skills" class="section container">
-      <h2 class="section-title reveal"><span class="num">02.</span> Skills</h2>
+      <h2 class="section-title reveal">
+        <span class="num">02.</span>
+        <span class="en">Skills</span><span class="ar">المهارات</span>
+      </h2>
       <div class="skills-grid">
         <article class="skill-card reveal">
-          <h3>💬 Languages</h3>
-          <ul><li>TypeScript</li><li>JavaScript</li><li>HTML5</li><li>CSS3</li></ul>
+          <h3>📱 <span class="en">Mobile</span><span class="ar">الموبايل</span></h3>
+          <ul><li>Flutter</li><li>Dart</li><li>Material Design</li></ul>
         </article>
         <article class="skill-card reveal">
-          <h3>🧩 Backend &amp; APIs</h3>
-          <ul><li>Node.js</li><li>Express</li><li>REST APIs</li><li>JWT &amp; OAuth</li><li>Zod</li></ul>
+          <h3>🌐 <span class="en">Web</span><span class="ar">الويب</span></h3>
+          <ul><li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>TypeScript</li><li>React</li><li>Tailwind CSS</li></ul>
         </article>
         <article class="skill-card reveal">
-          <h3>☁️ Cloud &amp; Data</h3>
-          <ul><li>Firebase</li><li>Firestore</li><li>Cloud Functions</li></ul>
+          <h3>🤖 <span class="en">AI &amp; Machine Learning</span><span class="ar">الذكاء الاصطناعي وتعلّم الآلة</span></h3>
+          <ul>
+            <li><span class="en">AI agents</span><span class="ar">وكلاء ذكاء اصطناعي</span></li>
+            <li><span class="en">Local model runtimes</span><span class="ar">موديلات محلية</span></li>
+            <li><span class="en">Prompt engineering</span><span class="ar">هندسة التوجيه</span></li>
+            <li><span class="en">Model evaluation</span><span class="ar">تقييم الموديلات</span></li>
+          </ul>
         </article>
         <article class="skill-card reveal">
-          <h3>🎨 Frontend &amp; Media</h3>
-          <ul><li>React</li><li>Tailwind CSS</li><li>Remotion</li></ul>
+          <h3>🔌 <span class="en">Embedded Systems</span><span class="ar">الأنظمة المدمجة</span></h3>
+          <ul>
+            <li><span class="en">Embedded C</span><span class="ar">Embedded C</span></li>
+            <li><span class="en">Microcontrollers</span><span class="ar">متحكمات دقيقة</span></li>
+            <li><span class="en">Sensors &amp; IoT</span><span class="ar">حساسات وإنترنت الأشياء</span></li>
+          </ul>
         </article>
         <article class="skill-card reveal">
-          <h3>🛠️ Tools &amp; Workflow</h3>
-          <ul><li>Git &amp; GitHub</li><li>GitHub Actions</li><li>VS Code</li><li>SSH</li></ul>
+          <h3>🧠 <span class="en">Software Engineering</span><span class="ar">هندسة البرمجيات</span></h3>
+          <ul>
+            <li><span class="en">Clean architecture</span><span class="ar">معمارية نظيفة</span></li>
+            <li><span class="en">Design patterns</span><span class="ar">أنماط التصميم</span></li>
+            <li><span class="en">Testing</span><span class="ar">الاختبارات</span></li>
+            <li><span class="en">Documentation</span><span class="ar">التوثيق</span></li>
+          </ul>
         </article>
         <article class="skill-card reveal">
-          <h3>🤖 AI &amp; Automation</h3>
-          <ul><li>AI agents</li><li>Local model runtimes</li><li>Prompt engineering</li></ul>
+          <h3>🛠️ <span class="en">Tools &amp; Workflow</span><span class="ar">الأدوات وسير العمل</span></h3>
+          <ul><li>Git &amp; GitHub</li><li>GitHub Actions</li><li>VS Code</li><li>Firebase</li></ul>
         </article>
       </div>
     </section>
 
     <!-- ============ PROJECTS ============ -->
     <section id="projects" class="section container">
-      <h2 class="section-title reveal"><span class="num">03.</span> Projects</h2>
+      <h2 class="section-title reveal">
+        <span class="num">03.</span>
+        <span class="en">Projects</span><span class="ar">المشاريع</span>
+      </h2>
       <div class="projects-grid">
         <article class="project-card reveal">
           <div class="project-head">
             <h3>CodePilot</h3>
-            <span class="badge">In progress</span>
+            <span class="badge"><span class="en">In progress</span><span class="ar">قيد التطوير</span></span>
           </div>
           <p>
-            An autonomous, evidence-driven engineering system for Flutter products:
-            multi-agent architecture with a task engine, job queue, checkpoints,
-            recovery and a local-first model runtime. It verifies itself instead of
-            trusting itself.
+            <span class="en">
+              An autonomous, evidence-driven engineering system for Flutter products:
+              multi-agent architecture with a task engine, checkpoints, recovery and a
+              local-first model runtime. It verifies itself instead of trusting itself.
+            </span>
+            <span class="ar">
+              نظام هندسي أوتوماتيكي لتطبيقات فلاتر بيعتمد على الأدلة: معمارية متعددة
+              الوكلاء مع محرك مهام ونقاط استرجاع وموديلات محلية. النظام بيتحقق من نفسه
+              بدل ما يثق في نفسه.
+            </span>
           </p>
-          <ul class="tags"><li>TypeScript</li><li>AI Agents</li><li>Local LLMs</li><li>Flutter</li></ul>
+          <ul class="tags"><li>Flutter</li><li>Dart</li><li>AI Agents</li><li>Local LLMs</li></ul>
           <div class="project-links">
-            <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">View on GitHub ↗</a>
+            <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">
+              <span class="en">View on GitHub ↗</span><span class="ar">شوفه على GitHub ↗</span>
+            </a>
           </div>
         </article>
 
         <article class="project-card reveal">
           <div class="project-head">
-            <h3>Admin Dashboard API</h3>
-            <span class="badge">Backend</span>
+            <h3><span class="en">Firebase App Suite</span><span class="ar">مجموعة تطبيقات Firebase</span></h3>
+            <span class="badge"><span class="en">Web</span><span class="ar">ويب</span></span>
           </div>
           <p>
-            REST backend powering an admin dashboard: email + Google sign-in,
-            JWT access tokens, role-based access, Firebase Admin integration and
-            strict request validation with Zod.
+            <span class="en">
+              Web apps backed by Firebase: Cloud Functions and tested security rules,
+              with an animated analytics dashboard built in Remotion + Tailwind that
+              renders geospatial data.
+            </span>
+            <span class="ar">
+              تطبيقات ويب مدعومة بـ Firebase: Cloud Functions وقواعد أمان مُختبرة، مع
+              لوحة تحليلات متحركة بـ Remotion + Tailwind لعرض بيانات جغرافية.
+            </span>
           </p>
-          <ul class="tags"><li>Express</li><li>TypeScript</li><li>Firebase</li><li>JWT</li><li>Zod</li></ul>
+          <ul class="tags"><li>Firebase</li><li>React</li><li>Remotion</li><li>Tailwind</li></ul>
           <div class="project-links">
-            <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">View on GitHub ↗</a>
+            <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">
+              <span class="en">View on GitHub ↗</span><span class="ar">شوفه على GitHub ↗</span>
+            </a>
           </div>
         </article>
 
         <article class="project-card reveal">
           <div class="project-head">
-            <h3>Firebase App Suite</h3>
-            <span class="badge">Cloud</span>
+            <h3><span class="en">This Portfolio</span><span class="ar">البورتفوليو ده</span></h3>
+            <span class="badge"><span class="en">Live</span><span class="ar">مباشر</span></span>
           </div>
           <p>
-            A reusable Firebase foundation: Cloud Functions, Firestore security rules
-            with unit tests, and an animated analytics component built with
-            Remotion + Tailwind that renders geospatial data.
-          </p>
-          <ul class="tags"><li>Firebase</li><li>Cloud Functions</li><li>React</li><li>Remotion</li><li>Tailwind</li></ul>
-          <div class="project-links">
-            <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">View on GitHub ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card reveal">
-          <div class="project-head">
-            <h3>This Portfolio</h3>
-            <span class="badge">Live</span>
-          </div>
-          <p>
-            A dependency-free single page — no frameworks, no build step.
-            Every push to <code>main</code> is deployed automatically to GitHub Pages
-            by a GitHub Actions pipeline.
+            <span class="en">
+              A dependency-free single page — no frameworks, no build step. Fully
+              bilingual (English / Arabic with RTL) and deployed automatically to
+              GitHub Pages by a GitHub Actions pipeline.
+            </span>
+            <span class="ar">
+              صفحة واحدة من غير أي مكتبات خارجية — مفيش frameworks ولا build step.
+              بنسختين كاملتين (عربي/إنجليزي مع RTL) وبتتنشر أوتوماتيك على GitHub Pages
+              بخط GitHub Actions.
+            </span>
           </p>
           <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>CI/CD</li></ul>
           <div class="project-links">
-            <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">View source ↗</a>
+            <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">
+              <span class="en">View source ↗</span><span class="ar">شوف الكود ↗</span>
+            </a>
           </div>
         </article>
       </div>
-      <p class="more reveal">More experiments on <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">my GitHub ↗</a></p>
+      <p class="more reveal">
+        <span class="en">More experiments on </span><span class="ar">تجارب أكتر على </span>
+        <a href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">GitHub ↗</a>
+      </p>
     </section>
 
     <!-- ============ CONTACT ============ -->
     <section id="contact" class="section container">
       <div class="contact-card reveal">
-        <h2>Let's build something together</h2>
+        <h2>
+          <span class="en">Let's build something together</span>
+          <span class="ar">خلينا نبني حاجة مع بعض</span>
+        </h2>
         <p>
-          I'm currently open to internships, freelance work and collaboration on
-          backend or AI tooling projects. The fastest way to reach me is email.
+          <span class="en">
+            I'm currently open to internships, freelance work and collaboration on
+            Flutter, web or AI projects. The fastest way to reach me is email.
+          </span>
+          <span class="ar">
+            متاح حالياً للتدريب الصيفي، الشغل الحر، والتعاون في مشاريع فلاتر أو ويب أو
+            ذكاء اصطناعي. أسرع طريقة للتواصل الإيميل.
+          </span>
         </p>
         <div class="contact-actions">
-          <a class="btn btn-primary" href="mailto:ahmed.osam419007@gmail.com">✉️ Email me</a>
+          <a class="btn btn-primary" href="mailto:ahmed.osam419007@gmail.com">
+            ✉️ <span class="en">Email me</span><span class="ar">ابعتلي إيميل</span>
+          </a>
           <a class="btn btn-ghost" href="https://github.com/ahmedosam419007" target="_blank" rel="noopener">GitHub ↗</a>
+          <!-- TODO: لما تبعتلي لينك LinkedIn هنفعّله:
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/USERNAME/" target="_blank" rel="noopener">LinkedIn ↗</a>
+          -->
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer container">
-    <p>© <span id="year">2026</span> Ahmed Osama · Built with ☕ &amp; deployed via GitHub Actions</p>
+    <p>
+      <span class="en">© <span id="year">2026</span> Ahmed Osam · Built with ☕ &amp; deployed via GitHub Actions</span>
+      <span class="ar">© <span id="yearAr">2026</span> أحمد أسام · اتعمل بـ ☕ وبيتنشر بـ GitHub Actions</span>
+    </p>
   </footer>
 
   <script src="script.js"></script>

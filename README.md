@@ -1,6 +1,6 @@
-# 🚀 Portfolio — Ahmed Osama
+# 🚀 Portfolio — Ahmed Osam
 
-الموقع الشخصي (Portfolio) بتاع أحمد أسامة — صفحة واحدة بدون أي مكتبات خارجية (No frameworks, No build step)، بتتنشر تلقائياً على **GitHub Pages** عن طريق **GitHub Actions**.
+الموقع الشخصي (Portfolio) بتاع أحمد أسام — صفحة واحدة بدون أي مكتبات خارجية (No frameworks, No build step)، بنسختين عربي/إنجليزي مع تبديل فوري (RTL)، وبتتنشر تلقائياً على **GitHub Pages** عن طريق **GitHub Actions**.
 
 ---
 
@@ -10,8 +10,9 @@
 |---|---|
 | `index.html` | كل محتوى الصفحة (السكاشن والأقسام) |
 | `style.css` | التصميم بالكامل (Dark theme + Responsive) |
-| `script.js` | الحركات: الـ Typing effect، السكرول، القائمة في الموبايل |
+| `script.js` | تبديل اللغة (عربي/إنجليزي + RTL)، الـ Typing effect، السكرول، القائمة في الموبايل |
 | `favicon.svg` | أيقونة الموقع |
+| `avatar.jpg` | صورتك الشخصية (المقصوصة) — `avatar-full.jpg` نسخة كاملة احتياطية |
 | `.github/workflows/deploy-pages.yml` | بيبني وينشر الموقع تلقائياً على GitHub Pages |
 
 ---
@@ -24,7 +25,8 @@
   لما ترفع كل مشروع في repository خاص بيه، غيّر اللينك في `index.html` (دور على `project-links`).
 
 ### حاجات محتاجة تتأكد منها قبل النشر
-- [ ] الاسم بالكامل (دلوقتي "Ahmed Osama")
+- [ ] الاسم بالكامل (دلوقتي "Ahmed Osam" / "أحمد أسام")
+- [ ] اللغة الافتراضية للموقع (دلوقتي إنجليزي — لو عايز العربي افتراضي، غيّر `"en"` لـ `"ar"` في أول `index.html`)
 - [ ] الإيميل في قسم Contact: `ahmed.osam419007@gmail.com`
 - [ ] لينك LinkedIn لو عايز تضيفه
 

@@ -1,6 +1,6 @@
 /* =========================================================
-   Ahmed Osama — Portfolio
-   Dependency-free single-page site
+   Ahmed Osam — Portfolio
+   Dependency-free single-page site · EN / AR (RTL)
    ========================================================= */
 
 :root {
@@ -17,7 +17,7 @@
   --grad: linear-gradient(100deg, var(--sky), var(--violet));
   --radius: 16px;
   --container: 1080px;
-  --font: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --font: "Segoe UI", system-ui, -apple-system, Roboto, "Noto Sans Arabic", Tahoma, Helvetica, Arial, sans-serif;
   --mono: "Cascadia Code", Consolas, "SF Mono", Menlo, monospace;
 }
 
@@ -50,9 +50,14 @@ a { color: inherit; }
   border-radius: 6px;
 }
 
+/* ---------- language visibility ---------- */
+
+[data-lang="en"] .ar { display: none !important; }
+[data-lang="ar"] .en { display: none !important; }
+
 .skip-link {
   position: absolute;
-  left: -999px;
+  inset-inline-start: -999px;
   top: 10px;
   z-index: 200;
   background: var(--bg-soft);
@@ -61,7 +66,7 @@ a { color: inherit; }
   border-radius: 10px;
   border: 1px solid var(--border);
 }
-.skip-link:focus { left: 10px; }
+.skip-link:focus { inset-inline-start: 10px; }
 
 /* ---------- background glow ---------- */
 
@@ -168,6 +173,12 @@ a { color: inherit; }
 
 .btn-sm { padding: 8px 15px; font-size: 0.85rem; border-radius: 10px; }
 
+.lang-btn {
+  min-width: 62px;
+  justify-content: center;
+  font-weight: 700;
+}
+
 /* ---------- header / nav ---------- */
 
 .header {
@@ -199,6 +210,7 @@ a { color: inherit; }
   font-size: 1.05rem;
   text-decoration: none;
   letter-spacing: -0.01em;
+  direction: ltr;
 }
 .logo span { color: var(--sky); }
 
@@ -218,7 +230,7 @@ a { color: inherit; }
 .nav-links a::after {
   content: "";
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   bottom: 0;
   height: 2px;
   width: 0;
@@ -231,7 +243,7 @@ a { color: inherit; }
 .nav-links a:hover::after,
 .nav-links a.active::after { width: 100%; }
 
-.nav-actions { display: flex; align-items: center; gap: 12px; }
+.nav-actions { display: flex; align-items: center; gap: 10px; }
 
 .menu-btn {
   display: none;
@@ -280,7 +292,7 @@ a { color: inherit; }
   display: inline-block;
   width: 2px;
   height: 1em;
-  margin-left: 3px;
+  margin-inline-start: 3px;
   vertical-align: -0.12em;
   background: var(--sky);
   animation: blink 1s steps(1) infinite;
@@ -312,7 +324,7 @@ a { color: inherit; }
   font-size: 0.9rem;
 }
 
-/* terminal card */
+/* code editor card */
 
 .hero-card { animation: float 7s ease-in-out infinite alternate; }
 @keyframes float {
@@ -320,7 +332,7 @@ a { color: inherit; }
   to { transform: translateY(-12px); }
 }
 
-.terminal {
+.editor {
   background:
     linear-gradient(160deg, rgba(56, 189, 248, 0.09), rgba(167, 139, 250, 0.09)),
     var(--bg-soft);
@@ -330,35 +342,46 @@ a { color: inherit; }
   box-shadow: 0 30px 90px rgba(2, 6, 23, 0.65);
 }
 
-.terminal-bar {
+.editor-bar {
   display: flex;
+  align-items: center;
   gap: 7px;
   padding: 13px 16px;
   background: rgba(255, 255, 255, 0.03);
   border-bottom: 1px solid var(--border);
 }
-.terminal-bar span {
+.editor-bar .dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
 }
-.terminal-bar span:nth-child(1) { background: #ff5f57; }
-.terminal-bar span:nth-child(2) { background: #febc2e; }
-.terminal-bar span:nth-child(3) { background: #28c840; }
+.editor-bar .dot:nth-child(1) { background: #ff5f57; }
+.editor-bar .dot:nth-child(2) { background: #febc2e; }
+.editor-bar .dot:nth-child(3) { background: #28c840; }
 
-.terminal pre {
+.file-label {
+  margin-inline-start: auto;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.editor pre {
   padding: 20px;
   font-family: var(--mono);
   font-size: 0.85rem;
   line-height: 1.85;
   overflow-x: auto;
   color: #cbd5e1;
+  direction: ltr;
+  text-align: left;
 }
-.t-prompt { color: var(--green); font-weight: 700; }
-.t-out { color: var(--muted); }
-.t-key { color: #7dd3fc; }
-.t-str { color: #c4b5fd; }
-.t-ok { color: var(--green); }
+
+.c-cm { color: #64748b; font-style: italic; }
+.c-kw { color: #f472b6; }
+.c-cls { color: #7dd3fc; }
+.c-typ { color: #34d399; }
+.c-fn { color: #c4b5fd; }
 
 /* ---------- about ---------- */
 
@@ -402,17 +425,20 @@ a { color: inherit; }
 }
 
 .avatar {
-  width: 86px;
-  height: 86px;
+  width: 118px;
+  height: 118px;
   margin: 0 auto 16px;
   border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  font-size: 1.7rem;
-  color: #081018;
+  padding: 3px;
   background: var(--grad);
   box-shadow: 0 12px 34px rgba(56, 189, 248, 0.3);
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
 }
 
 .about-card-name { font-weight: 700; font-size: 1.15rem; }
@@ -420,7 +446,7 @@ a { color: inherit; }
 
 .about-card-list {
   list-style: none;
-  text-align: left;
+  text-align: start;
 }
 .about-card-list li {
   display: flex;
@@ -431,7 +457,7 @@ a { color: inherit; }
   font-size: 0.88rem;
 }
 .about-card-list span { color: var(--muted); }
-.about-card-list strong { font-weight: 600; text-align: right; }
+.about-card-list strong { font-weight: 600; text-align: end; }
 
 .status-dot { color: var(--green); }
 .status-dot::before {
@@ -439,7 +465,7 @@ a { color: inherit; }
   display: inline-block;
   width: 8px;
   height: 8px;
-  margin-right: 7px;
+  margin-inline-end: 7px;
   border-radius: 50%;
   background: var(--green);
   box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.15);
@@ -534,14 +560,6 @@ a { color: inherit; }
   color: var(--muted);
   font-size: 0.94rem;
 }
-.project-card code {
-  font-family: var(--mono);
-  font-size: 0.85em;
-  color: #7dd3fc;
-  background: rgba(125, 211, 252, 0.08);
-  padding: 1px 6px;
-  border-radius: 6px;
-}
 
 .tags {
   list-style: none;
@@ -621,6 +639,11 @@ a { color: inherit; }
   z-index: 150;
   border-radius: 0 3px 3px 0;
 }
+[dir="rtl"] .scroll-progress {
+  left: auto;
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
 
 /* ---------- reveal animations ---------- */
 
@@ -642,7 +665,6 @@ a { color: inherit; }
 
 .projects-grid .reveal:nth-child(2) { transition-delay: 0.08s; }
 .projects-grid .reveal:nth-child(3) { transition-delay: 0.16s; }
-.projects-grid .reveal:nth-child(4) { transition-delay: 0.24s; }
 
 /* ---------- responsive ---------- */
 
@@ -677,7 +699,9 @@ a { color: inherit; }
 @media (max-width: 480px) {
   .hero-meta { gap: 12px; }
   .contact-card { padding: 48px 20px; }
-  .terminal pre { font-size: 0.78rem; }
+  .editor pre { font-size: 0.78rem; }
+  .nav-actions { gap: 6px; }
+  .nav-actions .btn { padding: 7px 11px; }
 }
 
 /* ---------- reduced motion ---------- */

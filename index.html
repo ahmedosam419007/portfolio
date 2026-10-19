@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://ahmedosam.dev/" />
   <meta property="og:image" content="https://ahmedosam.dev/avatar.jpg" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="stylesheet" href="style.css?v=7" />
   <script>
     /* Apply saved language before first paint (avoid flash) */
     (function () {
@@ -492,10 +492,8 @@
                 </div>
                 <div class="holo-screen">
                   <div class="holo-page holo-page--dark">
-                    <picture>
-                      <source media="(max-width: 760px)" srcset="veloro-dark-sm.jpg" />
-                      <img src="veloro-dark.jpg" alt="" loading="lazy" decoding="async" />
-                    </picture>
+                    <video class="holo-video" muted loop playsinline preload="none" poster="veloro-dark-poster.jpg"
+                      data-src="veloro-dark.mp4" data-src-sm="veloro-dark-sm.mp4" aria-label="VELORO website preview"></video>
                   </div>
                   <span class="holo-glow"></span>
                   <span class="holo-sheen" aria-hidden="true"></span>
@@ -514,10 +512,8 @@
                 </div>
                 <div class="holo-screen">
                   <div class="holo-page holo-page--light">
-                    <picture>
-                      <source media="(max-width: 760px)" srcset="veloro-live-sm.jpg" />
-                      <img src="veloro-live.jpg" alt="" loading="lazy" decoding="async" />
-                    </picture>
+                    <video class="holo-video" muted loop playsinline preload="none" poster="veloro-light-poster.jpg"
+                      data-src="veloro-light.mp4" data-src-sm="veloro-light-sm.mp4" aria-label="VELORO website preview (light theme)"></video>
                   </div>
                   <span class="holo-glow"></span>
                   <span class="holo-sheen" aria-hidden="true"></span>
@@ -623,6 +619,6 @@
     <span class="en">Sound</span><span class="ar">صوت</span>
   </button>
 
-  <script src="script.js?v=5"></script>
+  <script src="script.js?v=6"></script>
 </body>
 </html>

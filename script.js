@@ -443,6 +443,64 @@
     lightUpStage();
   }
 
+  /* ---------- real VELORO motion inside the prism ---------- */
+
+  var holoVideos = Array.prototype.slice.call(document.querySelectorAll(".holo-video"));
+
+  if (holoVideos.length && !reduceMotion) {
+    var holoVideosLoaded = false;
+
+    var loadHoloVideos = function () {
+      if (holoVideosLoaded) return;
+      holoVideosLoaded = true;
+      var useSmall = window.matchMedia("(max-width: 760px)").matches;
+      holoVideos.forEach(function (video) {
+        var src = useSmall ? video.getAttribute("data-src-sm") : video.getAttribute("data-src");
+        if (!src) return;
+        video.setAttribute("src", src);
+        video.load();
+      });
+    };
+
+    var playHoloVideos = function () {
+      if (document.hidden) return;
+      loadHoloVideos();
+      holoVideos.forEach(function (video) {
+        var started = video.play();
+        if (started && started.catch) started.catch(function () {});
+      });
+    };
+
+    var pauseHoloVideos = function () {
+      holoVideos.forEach(function (video) { video.pause(); });
+    };
+
+    var unlockHoloVideos = function () {
+      if (holoStage && holoStage.classList.contains("in-view")) playHoloVideos();
+      window.removeEventListener("pointerdown", unlockHoloVideos);
+      window.removeEventListener("touchstart", unlockHoloVideos);
+      window.removeEventListener("keydown", unlockHoloVideos);
+    };
+
+    window.addEventListener("pointerdown", unlockHoloVideos, { passive: true });
+    window.addEventListener("touchstart", unlockHoloVideos, { passive: true });
+    window.addEventListener("keydown", unlockHoloVideos);
+
+    if (holoStage && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) playHoloVideos(); else pauseHoloVideos();
+        });
+      }, { threshold: 0.08 }).observe(holoStage);
+    } else {
+      playHoloVideos();
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) pauseHoloVideos(); else playHoloVideos();
+    });
+  }
+
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
 
   function scrollFrame() {

@@ -940,9 +940,11 @@ a { color: inherit; }
   margin-bottom: 40px;
 }
 .holo-stage {
-  --emitter-space: clamp(158px, 17vw, 210px);
+  --emitter-height: clamp(168px, 16.8vw, 208px);
+  --emitter-gap: clamp(72px, 8vw, 104px);
+  --emitter-space: calc(var(--emitter-height) + var(--emitter-gap));
   position: relative;
-  perspective: 1600px;
+  perspective: 2800px;
   perspective-origin: 50% 52%;
   padding: var(--emitter-space) 0 70px;
   display: grid;
@@ -1187,6 +1189,16 @@ a { color: inherit; }
   inset: 0;
   overflow: hidden;
 }
+.holo-page video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  background: #0b1120;
+}
 .holo-page picture { display: block; width: 100%; }
 .holo-page img {
   display: block;
@@ -1411,7 +1423,7 @@ a { color: inherit; }
   top: 0;
   z-index: 4;
   width: clamp(200px, 23vw, 264px);
-  height: calc(var(--emitter-space) - 4px);
+  height: var(--emitter-height);
   transform: translateX(-50%);
   perspective: 860px;
   perspective-origin: 50% 18%;
@@ -1653,7 +1665,7 @@ a { color: inherit; }
   left: 50%;
   top: calc(2px + var(--core-size) + 4px);
   width: var(--arm-width);
-  height: 64%;
+  height: calc(var(--emitter-height) - var(--core-size) - 26px);
   margin-left: calc(var(--arm-width) * -0.5);
   transform-origin: 50% 0;
   transform: rotateY(calc(60deg + var(--i) * 120deg)) translateZ(calc(var(--core-size) * 0.42)) rotateX(14deg);
@@ -1727,8 +1739,27 @@ a { color: inherit; }
 }
 .holo-emitter__panel--back {
   transform: rotateY(180deg) translateZ(calc(var(--arm-depth) / 2));
-  border: 1px solid rgba(71, 85, 105, 0.4);
-  background: linear-gradient(90deg, #020617, #0f172a 25%, #1e293b 50%, #0f172a 75%, #020617);
+  border: 1px solid rgba(100, 116, 139, 0.45);
+  background:
+    linear-gradient(90deg, #020617, #1e293b 16%, #475569 38%, #64748b 50%, #475569 62%, #1e293b 84%, #020617),
+    linear-gradient(180deg, rgba(125, 211, 252, 0.1), transparent 22%, rgba(167, 139, 250, 0.12) 86%, rgba(2, 6, 23, 0.9));
+  box-shadow:
+    inset 1px 0 rgba(186, 230, 253, 0.2),
+    inset -1px 0 rgba(2, 6, 23, 0.8),
+    inset 0 1px rgba(224, 242, 254, 0.08);
+}
+.holo-emitter__panel--back::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  bottom: 8%;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(224, 242, 254, 0.7), rgba(125, 211, 252, 0.18) 45%, rgba(167, 139, 250, 0.6));
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.35);
+  opacity: 0.55;
 }
 .holo-emitter__panel--left,
 .holo-emitter__panel--right {
@@ -1786,6 +1817,21 @@ a { color: inherit; }
   box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
   transform: translateZ(calc(var(--arm-depth) / 2 + 1px));
 }
+.holo-emitter__tip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--arm-tip) + 8px);
+  height: calc(var(--arm-tip) + 8px);
+  margin: calc((var(--arm-tip) + 8px) * -0.5) 0 0 calc((var(--arm-tip) + 8px) * -0.5);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.6), rgba(56, 189, 248, 0.24) 56%, transparent 76%);
+  transform: translateZ(calc(var(--arm-depth) / -2 - 1px));
+  opacity: 0.45;
+  transition: opacity 0.8s ease 0.35s;
+}
+.holo-stage.is-lit .holo-emitter__tip::after { opacity: 0.85; }
 .holo-emitter__tip i {
   position: absolute;
   left: 50%;
@@ -1807,6 +1853,10 @@ a { color: inherit; }
   box-shadow:
     0 0 16px rgba(186, 230, 253, 1),
     0 0 40px rgba(56, 189, 248, 0.9);
+}
+
+@media (max-width: 760px) {
+  .holo-stage { perspective: 2000px; }
 }
 
 .holo-dust { position: absolute; inset: 0; pointer-events: none; }

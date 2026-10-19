@@ -79,21 +79,21 @@ a { color: inherit; }
 }
 .bg-glow span {
   position: absolute;
-  width: 55vw;
-  height: 55vw;
+  width: 62vw;
+  height: 62vw;
   border-radius: 50%;
-  filter: blur(110px);
-  opacity: 0.22;
+  opacity: 0.62;
+  will-change: transform;
 }
 .bg-glow span:nth-child(1) {
-  background: var(--sky);
-  top: -22vw;
-  left: -14vw;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.34), rgba(56, 189, 248, 0.08) 42%, transparent 70%);
+  top: -28vw;
+  left: -18vw;
 }
 .bg-glow span:nth-child(2) {
-  background: var(--violet);
-  bottom: -28vw;
-  right: -16vw;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.3), rgba(167, 139, 250, 0.07) 42%, transparent 70%);
+  bottom: -32vw;
+  right: -20vw;
 }
 /* interactive background squares */
 .bg-grid {
@@ -689,15 +689,19 @@ a { color: inherit; }
   top: 0;
   left: 0;
   height: 3px;
-  width: 0;
+  width: 100%;
   background: var(--grad);
   z-index: 150;
   border-radius: 0 3px 3px 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  will-change: transform;
 }
 [dir="rtl"] .scroll-progress {
   left: auto;
   right: 0;
   border-radius: 3px 0 0 3px;
+  transform-origin: 100% 50%;
 }
 
 /* ---------- reveal animations ---------- */
@@ -779,14 +783,12 @@ a { color: inherit; }
 /* ---------- scroll-reveal "camera focus" (override) ---------- */
 .reveal {
   opacity: 0;
-  transform: perspective(900px) translateY(26px) rotateX(7deg);
-  filter: blur(7px);
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.7s ease;
+  transform: perspective(900px) translateY(24px) rotateX(6deg);
+  transition: opacity 0.55s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .reveal.in {
   opacity: 1;
   transform: none;
-  filter: none;
 }
 
 /* ---------- parallax background ---------- */
@@ -825,7 +827,7 @@ a { color: inherit; }
   margin-bottom: 40px;
 }
 .holo-stage {
-  --emitter-space: clamp(136px, 16vw, 192px);
+  --emitter-space: clamp(158px, 17vw, 210px);
   position: relative;
   perspective: 1600px;
   perspective-origin: 50% 52%;
@@ -881,13 +883,27 @@ a { color: inherit; }
   box-shadow:
     inset 0 0 34px rgba(56, 189, 248, 0.14),
     0 0 22px rgba(56, 189, 248, 0.12);
-  backface-visibility: visible;
-  transition: border-color 0.9s ease, box-shadow 0.9s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.holo-face::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  border-radius: inherit;
+  border: 1px solid rgba(224, 242, 254, 0.95);
+  box-shadow:
+    inset 0 0 56px rgba(56, 189, 248, 0.36),
+    0 0 46px rgba(56, 189, 248, 0.52);
+  opacity: 0.07;
+  pointer-events: none;
 }
 .holo-face::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 2;
   border-radius: inherit;
   background: linear-gradient(115deg, transparent 24%, rgba(255, 255, 255, 0.08) 36%, transparent 48%, transparent 72%, rgba(125, 211, 252, 0.07) 84%, transparent 94%);
   mix-blend-mode: screen;
@@ -896,59 +912,22 @@ a { color: inherit; }
 .holo-stage.is-lit .holo-face {
   border-color: rgba(125, 211, 252, 0.5);
   box-shadow:
-    inset 0 0 46px rgba(56, 189, 248, 0.22),
-    0 0 32px rgba(56, 189, 248, 0.28);
+    inset 0 0 42px rgba(56, 189, 248, 0.2),
+    0 0 28px rgba(56, 189, 248, 0.24);
+}
+.holo-stage.is-lit .holo-face::before {
   animation: holoFrameLed 5.2s ease-in-out infinite;
 }
+/* Opacity-only blink: the glow is painted once, the compositor just fades it. */
 @keyframes holoFrameLed {
-  0%, 7% {
-    border-color: rgba(224, 242, 254, 0.95);
-    box-shadow:
-      inset 0 0 60px rgba(56, 189, 248, 0.4),
-      0 0 54px rgba(56, 189, 248, 0.62);
-  }
-  11%, 16% {
-    border-color: rgba(125, 211, 252, 0.2);
-    box-shadow:
-      inset 0 0 16px rgba(56, 189, 248, 0.06),
-      0 0 12px rgba(56, 189, 248, 0.1);
-  }
-  20%, 27% {
-    border-color: rgba(224, 242, 254, 0.95);
-    box-shadow:
-      inset 0 0 60px rgba(56, 189, 248, 0.4),
-      0 0 54px rgba(56, 189, 248, 0.62);
-  }
-  31%, 54% {
-    border-color: rgba(125, 211, 252, 0.16);
-    box-shadow:
-      inset 0 0 14px rgba(56, 189, 248, 0.05),
-      0 0 10px rgba(56, 189, 248, 0.08);
-  }
-  58%, 65% {
-    border-color: rgba(224, 242, 254, 0.95);
-    box-shadow:
-      inset 0 0 60px rgba(56, 189, 248, 0.4),
-      0 0 54px rgba(56, 189, 248, 0.62);
-  }
-  69%, 84% {
-    border-color: rgba(125, 211, 252, 0.16);
-    box-shadow:
-      inset 0 0 14px rgba(56, 189, 248, 0.05),
-      0 0 10px rgba(56, 189, 248, 0.08);
-  }
-  88%, 94% {
-    border-color: rgba(224, 242, 254, 0.92);
-    box-shadow:
-      inset 0 0 54px rgba(56, 189, 248, 0.34),
-      0 0 46px rgba(56, 189, 248, 0.52);
-  }
-  98%, 100% {
-    border-color: rgba(125, 211, 252, 0.16);
-    box-shadow:
-      inset 0 0 14px rgba(56, 189, 248, 0.05),
-      0 0 10px rgba(56, 189, 248, 0.08);
-  }
+  0%, 7% { opacity: 1; }
+  11%, 16% { opacity: 0.08; }
+  20%, 27% { opacity: 1; }
+  31%, 54% { opacity: 0.07; }
+  58%, 65% { opacity: 1; }
+  69%, 84% { opacity: 0.07; }
+  88%, 94% { opacity: 0.92; }
+  98%, 100% { opacity: 0.07; }
 }
 .holo-face--front { inset: 0; transform: translateZ(calc(var(--hl-depth) / 2)); }
 .holo-face--back { inset: 0; transform: rotateY(180deg) translateZ(calc(var(--hl-depth) / 2)); }
@@ -984,6 +963,24 @@ a { color: inherit; }
 }
 .holo-content--front { transform: translateZ(calc(var(--hl-depth) / 2 - 9px)); }
 .holo-content--back { transform: rotateY(180deg) translateZ(calc(var(--hl-depth) / 2 - 9px)); }
+/* Bezel light lives above the browser so the blink never repaints the page. */
+.holo-content::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 4;
+  border-radius: 15px;
+  border: 1px solid rgba(186, 230, 253, 0.95);
+  box-shadow:
+    0 0 28px rgba(56, 189, 248, 0.52),
+    0 0 76px rgba(56, 189, 248, 0.24),
+    inset 0 0 26px rgba(56, 189, 248, 0.2);
+  opacity: 0.06;
+  pointer-events: none;
+}
+.holo-stage.is-lit .holo-content::after {
+  animation: holoBezelLed 5.2s ease-in-out infinite;
+}
 
 .holo-browser {
   display: flex;
@@ -993,19 +990,16 @@ a { color: inherit; }
   overflow: hidden;
   border: 1px solid rgba(56, 189, 248, 0.55);
   background: #0b1120;
-  box-shadow: 0 0 26px rgba(56, 189, 248, 0.3), 0 0 90px rgba(56, 189, 248, 0.16);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.24);
   opacity: 0;
-  filter: brightness(0.4) saturate(0.6);
-  transition: opacity 0.6s ease, filter 0.6s ease;
+  transition: opacity 0.5s ease;
 }
 .holo-stage.is-lit .holo-browser {
   opacity: 1;
-  filter: none;
   animation:
     holoIgnite 4.4s linear 1,
     holoReveal 2.5s cubic-bezier(0.2, 0.75, 0.3, 1) 0.12s 1 both,
-    holoGlitch 2.5s steps(1, end) 0.12s 1,
-    holoBezelLed 5.2s ease-in-out infinite;
+    holoGlitch 2.5s steps(1, end) 0.12s 1;
 }
 @keyframes holoReveal {
   from { clip-path: inset(0 0 100% 0); }
@@ -1025,71 +1019,30 @@ a { color: inherit; }
   57%, 100% { transform: translateX(0); }
 }
 @keyframes holoIgnite {
-  0% { opacity: 0; filter: brightness(2.6) saturate(0); }
-  4% { opacity: 0.8; filter: brightness(2.2) saturate(0.2); }
+  0% { opacity: 0; }
+  4% { opacity: 0.8; }
   7% { opacity: 0.08; }
-  13% { opacity: 0.9; filter: brightness(1.7); }
+  13% { opacity: 0.9; }
   17% { opacity: 0.12; }
-  24% { opacity: 0.75; filter: brightness(1.4); }
+  24% { opacity: 0.75; }
   28% { opacity: 0.05; }
   37% { opacity: 0.85; }
   41% { opacity: 0.25; }
-  52% { opacity: 1; filter: brightness(1.15); }
+  52% { opacity: 1; }
   57% { opacity: 0.5; }
-  66% { opacity: 1; filter: brightness(1.05); }
+  66% { opacity: 1; }
   71% { opacity: 0.72; }
-  80% { opacity: 1; filter: brightness(1.02); }
-  100% { opacity: 1; filter: none; }
+  80%, 100% { opacity: 1; }
 }
 @keyframes holoBezelLed {
-  0%, 7% {
-    border-color: rgba(186, 230, 253, 0.95);
-    box-shadow:
-      0 0 34px rgba(56, 189, 248, 0.6),
-      0 0 100px rgba(56, 189, 248, 0.32);
-  }
-  11%, 16% {
-    border-color: rgba(56, 189, 248, 0.34);
-    box-shadow:
-      0 0 14px rgba(56, 189, 248, 0.16),
-      0 0 46px rgba(56, 189, 248, 0.08);
-  }
-  20%, 27% {
-    border-color: rgba(186, 230, 253, 0.95);
-    box-shadow:
-      0 0 34px rgba(56, 189, 248, 0.6),
-      0 0 100px rgba(56, 189, 248, 0.32);
-  }
-  31%, 54% {
-    border-color: rgba(56, 189, 248, 0.3);
-    box-shadow:
-      0 0 14px rgba(56, 189, 248, 0.14),
-      0 0 42px rgba(56, 189, 248, 0.07);
-  }
-  58%, 65% {
-    border-color: rgba(186, 230, 253, 0.95);
-    box-shadow:
-      0 0 34px rgba(56, 189, 248, 0.6),
-      0 0 100px rgba(56, 189, 248, 0.32);
-  }
-  69%, 84% {
-    border-color: rgba(56, 189, 248, 0.3);
-    box-shadow:
-      0 0 14px rgba(56, 189, 248, 0.14),
-      0 0 42px rgba(56, 189, 248, 0.07);
-  }
-  88%, 94% {
-    border-color: rgba(186, 230, 253, 0.92);
-    box-shadow:
-      0 0 30px rgba(56, 189, 248, 0.52),
-      0 0 88px rgba(56, 189, 248, 0.27);
-  }
-  98%, 100% {
-    border-color: rgba(56, 189, 248, 0.3);
-    box-shadow:
-      0 0 14px rgba(56, 189, 248, 0.14),
-      0 0 42px rgba(56, 189, 248, 0.07);
-  }
+  0%, 7% { opacity: 1; }
+  11%, 16% { opacity: 0.06; }
+  20%, 27% { opacity: 1; }
+  31%, 54% { opacity: 0.05; }
+  58%, 65% { opacity: 1; }
+  69%, 84% { opacity: 0.05; }
+  88%, 94% { opacity: 0.92; }
+  98%, 100% { opacity: 0.05; }
 }
 .holo-bar {
   display: flex;
@@ -1110,13 +1063,13 @@ a { color: inherit; }
   opacity: 0.85;
   direction: ltr;
 }
-.holo-screen { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; background: #0b1120; }
+.holo-screen { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; background: #0b1120; contain: paint; }
 .holo-page {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  clip-path: inset(0 0 var(--holo-cut, 0%) 0);
 }
+.holo-page picture { display: block; width: 100%; }
 .holo-page img {
   display: block;
   width: 100%;
@@ -1189,24 +1142,26 @@ a { color: inherit; }
   aspect-ratio: 1.3;
   transform: translate(-50%, -50%);
   background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.2), rgba(56, 189, 248, 0.05) 46%, transparent 70%);
-  filter: blur(34px);
-  opacity: 0.85;
+  opacity: 0.8;
   pointer-events: none;
   animation: holoHaloPulse 8s ease-in-out infinite;
 }
-@keyframes holoHaloPulse { 50% { opacity: 0.5; } }
+@keyframes holoHaloPulse { 50% { opacity: 0.45; } }
 .holo-beam {
   position: absolute;
   left: 50%;
-  top: clamp(28px, 3.2vw, 42px);
+  top: clamp(46px, 4.8vw, 61px);
   bottom: 3%;
-  width: min(720px, 84%);
+  width: min(760px, 88%);
   transform: translateX(-50%);
   background:
-    linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.16) 26%, rgba(186, 230, 253, 0.38) 50%, rgba(125, 211, 252, 0.16) 74%, transparent),
-    linear-gradient(180deg, rgba(56, 189, 248, 0.32), rgba(56, 189, 248, 0.07) 68%, transparent);
-  clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%);
-  filter: blur(26px);
+    radial-gradient(ellipse 44% 12% at 50% 0%, rgba(224, 242, 254, 0.34), transparent 100%),
+    linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.14) 22%, rgba(186, 230, 253, 0.36) 50%, rgba(125, 211, 252, 0.14) 78%, transparent),
+    linear-gradient(180deg, rgba(56, 189, 248, 0.34), rgba(56, 189, 248, 0.07) 66%, transparent);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 17%, #000 83%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 17%, #000 83%, transparent 100%);
+  filter: blur(18px);
   mix-blend-mode: screen;
   opacity: 0;
   transition: opacity 1.1s ease 0.35s;
@@ -1270,9 +1225,8 @@ a { color: inherit; }
   width: min(620px, 76%);
   height: 92px;
   transform: translateX(-50%);
-  background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.45), rgba(167, 139, 250, 0.14) 52%, transparent 74%);
-  filter: blur(22px);
-  opacity: 0.65;
+  background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.42), rgba(167, 139, 250, 0.13) 52%, transparent 74%);
+  opacity: 0.6;
   pointer-events: none;
   animation: holoHaloPulse 9s ease-in-out infinite;
 }
@@ -1284,7 +1238,6 @@ a { color: inherit; }
   aspect-ratio: 1.5;
   transform: translate(-50%, -50%);
   background: radial-gradient(ellipse at center, rgba(186, 230, 253, 0.55), rgba(56, 189, 248, 0.16) 42%, transparent 68%);
-  filter: blur(16px);
   mix-blend-mode: screen;
   opacity: 0;
   pointer-events: none;
@@ -1331,17 +1284,19 @@ a { color: inherit; }
 
 /* ---------- projection head ---------- */
 .holo-emitter {
-  --core-size: clamp(34px, 3.6vw, 44px);
-  --ring-size: clamp(80px, 9.6vw, 104px);
-  --arm-width: clamp(13px, 1.5vw, 17px);
-  --arm-tip: clamp(8px, 1vw, 11px);
+  --core-size: clamp(48px, 5vw, 62px);
+  --arm-width: clamp(17px, 1.8vw, 22px);
+  --arm-depth: clamp(12px, 1.3vw, 16px);
+  --arm-tip: clamp(10px, 1.1vw, 13px);
   position: absolute;
   left: 50%;
-  top: 4px;
+  top: 0;
   z-index: 4;
-  width: clamp(168px, 20vw, 228px);
-  height: calc(var(--emitter-space) - 8px);
+  width: clamp(200px, 23vw, 264px);
+  height: calc(var(--emitter-space) - 4px);
   transform: translateX(-50%);
+  perspective: 860px;
+  perspective-origin: 50% 18%;
   pointer-events: none;
 }
 .holo-emitter__halo {
@@ -1352,14 +1307,26 @@ a { color: inherit; }
   aspect-ratio: 1;
   transform: translate(-50%, -18%);
   background: radial-gradient(circle, rgba(56, 189, 248, 0.26), rgba(167, 139, 250, 0.09) 45%, transparent 70%);
-  filter: blur(26px);
-  opacity: 0.3;
+  opacity: 0.24;
   transition: opacity 1.1s ease;
 }
 .holo-stage.is-lit .holo-emitter__halo {
-  opacity: 0.9;
+  opacity: 0.82;
   animation: holoHaloPulse 7s ease-in-out infinite;
 }
+.holo-emitter__flare {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--core-size) * 1.06);
+  width: clamp(76px, 8.4vw, 98px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 249, 255, 0.75) 0 5%, rgba(125, 211, 252, 0.3) 18%, rgba(56, 189, 248, 0.08) 44%, transparent 70%);
+  opacity: 0.2;
+  transition: opacity 1s ease 0.2s;
+}
+.holo-stage.is-lit .holo-emitter__flare { opacity: 0.9; }
 .holo-emitter__rig {
   position: absolute;
   left: 50%;
@@ -1368,16 +1335,97 @@ a { color: inherit; }
   height: 100%;
   margin-left: -50%;
   transform-style: preserve-3d;
-  transform: rotateX(9deg);
-  transform-origin: 50% 20px;
+  transform: rotateX(10deg);
+  transform-origin: 50% 22px;
   animation: emitterSpin 26s linear 0.55s infinite;
   animation-play-state: paused;
+  will-change: transform;
 }
 .holo-stage.is-lit.in-view .holo-emitter__rig { animation-play-state: running; }
 @keyframes emitterSpin {
-  from { transform: rotateX(9deg) rotateY(0deg); }
-  to { transform: rotateX(9deg) rotateY(360deg); }
+  from { transform: rotateX(10deg) rotateY(0deg); }
+  to { transform: rotateX(10deg) rotateY(360deg); }
 }
+
+/* gyroscopic rings around the orb */
+.holo-emitter__gyro {
+  position: absolute;
+  left: 50%;
+  top: calc(2px + var(--core-size) * 0.5);
+  width: var(--gyro-size);
+  aspect-ratio: 1;
+  margin-left: calc(var(--gyro-size) * -0.5);
+  margin-top: calc(var(--gyro-size) * -0.5);
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg 38deg,
+      rgba(224, 242, 254, 0.95) 40deg 46deg,
+      transparent 48deg 92deg,
+      rgba(56, 189, 248, 0.6) 94deg 102deg,
+      transparent 104deg 156deg,
+      rgba(167, 139, 250, 0.8) 158deg 164deg,
+      transparent 166deg 222deg,
+      rgba(224, 242, 254, 0.9) 224deg 230deg,
+      transparent 232deg 288deg,
+      rgba(56, 189, 248, 0.6) 290deg 298deg,
+      transparent 300deg 360deg
+    ),
+    conic-gradient(rgba(125, 211, 252, 0.16) 0deg 360deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  opacity: 0.58;
+  pointer-events: none;
+  transition: opacity 0.9s ease;
+  animation-play-state: paused;
+  will-change: transform;
+}
+.holo-emitter__gyro--a {
+  --gyro-size: clamp(118px, 13.2vw, 150px);
+  transform: rotateX(58deg) rotateY(-14deg) rotateZ(8deg);
+  animation: holoGyroA 18s linear infinite;
+  animation-play-state: paused;
+}
+.holo-emitter__gyro--b {
+  --gyro-size: clamp(88px, 10vw, 112px);
+  transform: rotateX(46deg) rotateY(38deg) rotateZ(-22deg);
+  animation: holoGyroB 13s linear infinite;
+  animation-play-state: paused;
+}
+.holo-emitter__gyro--c {
+  --gyro-size: clamp(150px, 16.4vw, 190px);
+  background:
+    conic-gradient(
+      from 90deg,
+      transparent 0deg 76deg,
+      rgba(125, 211, 252, 0.7) 78deg 84deg,
+      transparent 86deg 164deg,
+      rgba(167, 139, 250, 0.6) 166deg 172deg,
+      transparent 174deg 252deg,
+      rgba(224, 242, 254, 0.7) 254deg 260deg,
+      transparent 262deg 360deg
+    ),
+    conic-gradient(rgba(125, 211, 252, 0.14) 0deg 360deg);
+  transform: rotateX(62deg) rotateZ(16deg);
+  opacity: 0.4;
+  animation: none;
+  will-change: auto;
+}
+.holo-stage.is-lit .holo-emitter__gyro { opacity: 0.95; }
+.holo-stage.is-lit .holo-emitter__gyro--c { opacity: 0.52; }
+.holo-stage.is-lit.in-view .holo-emitter__gyro--a,
+.holo-stage.is-lit.in-view .holo-emitter__gyro--b { animation-play-state: running; }
+@keyframes holoGyroA {
+  from { transform: rotateX(58deg) rotateY(-14deg) rotateZ(0deg); }
+  to { transform: rotateX(58deg) rotateY(-14deg) rotateZ(360deg); }
+}
+@keyframes holoGyroB {
+  from { transform: rotateX(46deg) rotateY(38deg) rotateZ(-22deg); }
+  to { transform: rotateX(46deg) rotateY(38deg) rotateZ(338deg); }
+}
+
+/* polished glass core: the light source of the rig */
 .holo-emitter__core {
   position: absolute;
   left: 50%;
@@ -1387,101 +1435,260 @@ a { color: inherit; }
   margin-left: calc(var(--core-size) * -0.5);
   border-radius: 50%;
   background:
-    radial-gradient(circle at 36% 30%, #f0f9ff 0 12%, #bae6fd 26%, #38bdf8 56%, #6366f1 78%, #0b1120 100%);
-  border: 1px solid rgba(186, 230, 253, 0.75);
+    radial-gradient(circle at 33% 24%, #ffffff 0 5%, #f0f9ff 11%, #bae6fd 24%, #7dd3fc 38%, #38bdf8 54%, #5b8cff 72%, #1e3a8a 90%, #0b1220 100%);
+  border: 1.5px solid rgba(125, 211, 252, 0.6);
   box-shadow:
-    0 0 16px rgba(56, 189, 248, 0.65),
-    0 0 46px rgba(56, 189, 248, 0.35),
-    inset 0 0 12px rgba(255, 255, 255, 0.35);
-  opacity: 0.45;
-  filter: saturate(0.6) brightness(0.75);
-  transform: translateZ(4px);
-  transition: opacity 0.9s ease, filter 0.9s ease, box-shadow 0.9s ease;
+    inset 0 -7px 14px rgba(125, 211, 252, 0.42),
+    inset -8px -10px 18px rgba(2, 6, 23, 0.62),
+    inset 6px 6px 14px rgba(255, 255, 255, 0.2),
+    0 0 20px rgba(56, 189, 248, 0.65),
+    0 0 56px rgba(56, 189, 248, 0.32);
+  transform: translateZ(2px);
+  opacity: 0.58;
+  transition: opacity 0.9s ease, box-shadow 0.9s ease;
+}
+.holo-emitter__core::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse 64% 26% at 50% 97%, rgba(125, 211, 252, 0.55), transparent 72%),
+    radial-gradient(ellipse 45% 20% at 28% 20%, rgba(255, 255, 255, 0.42), transparent 75%);
+}
+.holo-emitter__core::after {
+  content: "";
+  position: absolute;
+  inset: 2%;
+  border-radius: 50%;
+  border: 1px solid rgba(224, 242, 254, 0.18);
+  box-shadow: inset -4px -5px 10px rgba(2, 6, 23, 0.35);
+}
+.holo-emitter__core i {
+  position: absolute;
+  left: 21%;
+  top: 14%;
+  width: 31%;
+  height: 19%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 72%);
+  transform: rotate(-26deg);
 }
 .holo-stage.is-lit .holo-emitter__core {
   opacity: 1;
-  filter: none;
   box-shadow:
-    0 0 22px rgba(56, 189, 248, 0.85),
-    0 0 70px rgba(56, 189, 248, 0.5),
-    inset 0 0 14px rgba(255, 255, 255, 0.5);
+    inset 0 -7px 14px rgba(125, 211, 252, 0.52),
+    inset -8px -10px 18px rgba(2, 6, 23, 0.5),
+    inset 6px 6px 14px rgba(255, 255, 255, 0.26),
+    0 0 26px rgba(56, 189, 248, 0.88),
+    0 0 80px rgba(56, 189, 248, 0.48);
 }
-.holo-emitter__ring {
+.holo-emitter__mount {
   position: absolute;
   left: 50%;
-  top: calc(var(--core-size) * 0.5 + 2px);
-  width: var(--ring-size);
-  aspect-ratio: 1;
-  margin-left: calc(var(--ring-size) * -0.5);
-  margin-top: calc(var(--ring-size) * -0.5);
+  top: calc(2px + var(--core-size) - 4px);
+  width: calc(var(--core-size) * 1.15);
+  height: calc(var(--core-size) * 0.2);
+  margin-left: calc(var(--core-size) * -0.575);
   border-radius: 50%;
-  border: 1px solid rgba(186, 230, 253, 0.4);
+  background: radial-gradient(ellipse at 50% 45%, rgba(56, 189, 248, 0.18) 0 22%, #0b1220 48%, #1e293b 72%, #475569 86%, #020617 100%);
+  border: 1px solid rgba(125, 211, 252, 0.22);
   box-shadow:
-    0 0 22px rgba(56, 189, 248, 0.24),
-    inset 0 0 20px rgba(56, 189, 248, 0.18);
-  transform: rotateX(72deg) rotateZ(18deg);
-  opacity: 0.55;
-  transition: opacity 0.9s ease, border-color 0.9s ease;
+    0 0 14px rgba(56, 189, 248, 0.18),
+    inset 0 1px rgba(224, 242, 254, 0.18);
+  opacity: 0.72;
+  transition: opacity 0.8s ease, box-shadow 0.8s ease;
 }
-.holo-stage.is-lit .holo-emitter__ring {
-  opacity: 0.95;
-  border-color: rgba(186, 230, 253, 0.7);
+.holo-stage.is-lit .holo-emitter__mount {
+  opacity: 1;
+  box-shadow:
+    0 0 18px rgba(56, 189, 248, 0.3),
+    inset 0 1px rgba(224, 242, 254, 0.26);
 }
+.holo-emitter__lens {
+  position: absolute;
+  left: 50%;
+  top: calc(2px + var(--core-size) - 3px);
+  width: calc(var(--core-size) * 0.66);
+  height: calc(var(--core-size) * 0.22);
+  margin-left: calc(var(--core-size) * -0.33);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 40%, #ffffff 0 8%, #bae6fd 22%, #38bdf8 52%, rgba(56, 189, 248, 0.14) 78%, transparent 100%);
+  box-shadow:
+    0 0 18px rgba(56, 189, 248, 0.7),
+    0 0 40px rgba(56, 189, 248, 0.3);
+  opacity: 0.35;
+  transition: opacity 0.8s ease 0.15s;
+}
+.holo-emitter__lens::before {
+  content: "";
+  position: absolute;
+  inset: -3px -2px;
+  border-radius: 50%;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+.holo-stage.is-lit .holo-emitter__lens { opacity: 1; }
+
+/* three armoured projection booms */
 .holo-emitter__arm {
   position: absolute;
   left: 50%;
-  top: calc(var(--core-size) * 0.5 + 4px);
+  top: calc(2px + var(--core-size) + 4px);
   width: var(--arm-width);
-  height: 58%;
+  height: 64%;
   margin-left: calc(var(--arm-width) * -0.5);
   transform-origin: 50% 0;
-  transform: rotateY(calc(var(--i) * 120deg)) rotateX(12deg);
+  transform: rotateY(calc(60deg + var(--i) * 120deg)) translateZ(calc(var(--core-size) * 0.42)) rotateX(14deg);
   transform-style: preserve-3d;
-  transition: transform 1.15s cubic-bezier(0.2, 0.85, 0.25, 1.08);
-  transition-delay: calc(var(--i) * 80ms);
+  transition: transform 1.2s cubic-bezier(0.18, 0.82, 0.25, 1.06);
+  transition-delay: calc(var(--i) * 70ms);
 }
 .holo-stage.is-lit .holo-emitter__arm {
-  transform: rotateY(calc(var(--i) * 120deg)) rotateX(56deg);
+  transform: rotateY(calc(60deg + var(--i) * 120deg)) translateZ(calc(var(--core-size) * 0.42)) rotateX(58deg);
 }
-.holo-emitter__arm i {
+.holo-emitter__joint {
   position: absolute;
-  inset: 0;
-  display: block;
-  border-radius: 6px 6px 10px 10px;
-  transform-style: preserve-3d;
-  background:
-    linear-gradient(180deg, rgba(186, 230, 253, 0.95) 0 6%, rgba(56, 189, 248, 0.5) 24%, rgba(15, 23, 42, 0.88) 62%, rgba(167, 139, 250, 0.7) 100%);
-  border: 1px solid rgba(125, 211, 252, 0.45);
+  left: 50%;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #f0f9ff, #7dd3fc 22%, #38bdf8 52%, #172554 100%);
   box-shadow:
-    0 0 14px rgba(56, 189, 248, 0.22),
-    inset 0 0 10px rgba(56, 189, 248, 0.2);
+    0 0 10px rgba(56, 189, 248, 0.45),
+    inset -2px -3px 6px rgba(2, 6, 23, 0.7);
 }
-.holo-emitter__arm i::before {
+.holo-emitter__boom {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 10px);
+  transform-style: preserve-3d;
+}
+.holo-emitter__panel {
+  position: absolute;
+  display: block;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.holo-emitter__panel--front,
+.holo-emitter__panel--back {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px 6px 13px 13px;
+}
+.holo-emitter__panel--front {
+  transform: translateZ(calc(var(--arm-depth) / 2));
+  border: 1px solid rgba(148, 197, 223, 0.4);
+  background:
+    linear-gradient(90deg, rgba(2, 6, 23, 0.92), transparent 16%, transparent 84%, rgba(2, 6, 23, 0.92)),
+    linear-gradient(180deg, #e0f2fe 0 2%, #7dd3fc 3%, #0ea5e9 6%, #0b1220 12%, #060d1a 45%, #0b1220 70%, #312e81 86%, #7c3aed 96%, #e9d5ff 100%);
+  box-shadow:
+    inset 1px 0 rgba(255, 255, 255, 0.18),
+    inset -1px 0 rgba(2, 6, 23, 0.8);
+}
+.holo-emitter__panel--front::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  border: 1px solid rgba(125, 211, 252, 0.25);
-  background: linear-gradient(180deg, rgba(125, 211, 252, 0.35), rgba(11, 17, 32, 0.9) 50%, rgba(56, 189, 248, 0.45));
-  transform: rotateY(90deg);
+  background: linear-gradient(
+    180deg,
+    transparent 0 26%,
+    rgba(125, 211, 252, 0.16) 26% 26.8%,
+    transparent 26.8% 51%,
+    rgba(125, 211, 252, 0.12) 51% 51.6%,
+    transparent 51.6% 74%,
+    rgba(167, 139, 250, 0.14) 74% 74.6%,
+    transparent 74.6%
+  );
 }
-.holo-emitter__arm i::after {
+.holo-emitter__panel--back {
+  transform: rotateY(180deg) translateZ(calc(var(--arm-depth) / 2));
+  border: 1px solid rgba(71, 85, 105, 0.4);
+  background: linear-gradient(90deg, #020617, #0f172a 25%, #1e293b 50%, #0f172a 75%, #020617);
+}
+.holo-emitter__panel--left,
+.holo-emitter__panel--right {
+  top: 0;
+  left: 50%;
+  width: var(--arm-depth);
+  height: 100%;
+  margin-left: calc(var(--arm-depth) * -0.5);
+  border-radius: 3px 3px 8px 8px;
+  background: linear-gradient(90deg, #020617 0%, #0b1220 34%, #1e293b 60%, #475569 76%, #cbd5e1 84%, #64748b 89%, #0f172a 100%);
+  box-shadow: inset 1px 0 rgba(186, 230, 253, 0.12);
+}
+.holo-emitter__panel--left { transform: translateX(calc(var(--arm-width) * -0.5)) rotateY(-90deg); }
+.holo-emitter__panel--right { transform: translateX(calc(var(--arm-width) * 0.5)) rotateY(90deg); }
+.holo-emitter__rail {
+  position: absolute;
+  left: 50%;
+  top: 11%;
+  bottom: 14%;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, rgba(240, 249, 255, 0.95), rgba(56, 189, 248, 0.5) 22%, rgba(56, 189, 248, 0.08) 56%, rgba(167, 139, 250, 0.9));
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.85);
+  transform: translateZ(calc(var(--arm-depth) / 2 + 1px));
+  opacity: 0.55;
+  transition: opacity 0.8s ease 0.2s;
+}
+.holo-stage.is-lit .holo-emitter__rail { opacity: 1; }
+.holo-emitter__tip {
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: calc(var(--arm-width) + 12px);
+  height: 20px;
+  margin-left: calc((var(--arm-width) + 12px) * -0.5);
+  border-radius: 50% 50% 42% 42%;
+  background: linear-gradient(180deg, #334155, #0f172a 42%, #312e81);
+  border: 1px solid rgba(125, 211, 252, 0.4);
+  box-shadow:
+    0 0 12px rgba(56, 189, 248, 0.12),
+    inset 0 1px rgba(255, 255, 255, 0.2);
+  transform-style: preserve-3d;
+}
+.holo-emitter__tip::before {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -4px;
+  top: 50%;
+  width: calc(var(--arm-tip) + 10px);
+  height: calc(var(--arm-tip) + 10px);
+  margin: calc((var(--arm-tip) + 10px) * -0.5) 0 0 calc((var(--arm-tip) + 10px) * -0.5);
+  border-radius: 50%;
+  background: radial-gradient(circle, #0b1220 0 48%, #1e293b 60%, #475569 74%, #bae6fd 86%, #38bdf8 100%);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+  transform: translateZ(calc(var(--arm-depth) / 2 + 1px));
+}
+.holo-emitter__tip i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
   width: var(--arm-tip);
   height: var(--arm-tip);
-  margin-left: calc(var(--arm-tip) * -0.5);
+  margin: calc(var(--arm-tip) * -0.5) 0 0 calc(var(--arm-tip) * -0.5);
   border-radius: 50%;
-  background: #e0f2fe;
-  box-shadow: 0 0 10px #38bdf8, 0 0 24px rgba(56, 189, 248, 0.7);
-  opacity: 0.35;
+  background: radial-gradient(circle at 38% 30%, #ffffff 0 8%, #bae6fd 24%, #38bdf8 58%, #1e1b4b 100%);
+  box-shadow:
+    0 0 12px rgba(125, 211, 252, 0.9),
+    0 0 30px rgba(56, 189, 248, 0.6);
+  transform: translateZ(calc(var(--arm-depth) / 2 + 2px));
+  opacity: 0.4;
   transition: opacity 0.8s ease 0.35s, box-shadow 0.8s ease 0.35s;
 }
-.holo-stage.is-lit .holo-emitter__arm i::after {
+.holo-stage.is-lit .holo-emitter__tip i {
   opacity: 1;
-  box-shadow: 0 0 14px #7dd3fc, 0 0 34px rgba(56, 189, 248, 0.85);
+  box-shadow:
+    0 0 16px rgba(186, 230, 253, 1),
+    0 0 40px rgba(56, 189, 248, 0.9);
 }
 
 .holo-dust { position: absolute; inset: 0; pointer-events: none; }
@@ -1628,7 +1835,7 @@ a { color: inherit; }
   box-shadow: 0 8px 24px rgba(56, 189, 248, 0.16);
 }
 
-/* ---------- light closing zone (dark → light) ---------- */
+/* ---------- light closing zone (dark â†’ light) ---------- */
 
 .lightzone {
   position: relative;
@@ -1688,30 +1895,126 @@ a { color: inherit; }
 
 /* ---------- motion preferences ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; filter: none; transition: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
   .cursor-robot { display: none; }
   .holo-dust { display: none; }
   .holo-orbit { transform: none !important; }
   .holo-cube { animation: none; }
-  .holo-browser { opacity: 1; filter: none; animation: none; clip-path: none; }
-  .holo-face { animation: none; }
+  .holo-browser { opacity: 1; animation: none; clip-path: none; }
+  .holo-face::before { animation: none; opacity: 0.9; }
+  .holo-content::after { animation: none; opacity: 0.85; }
   .holo-flash { display: none; }
   .holo-scan,
   .holo-print,
   .holo-pulse { display: none; }
-  .holo-page { clip-path: none; }
   .holo-page img { animation: none; }
   .holo-sheen, .holo-halo, .holo-beam, .holo-base, .holo-live-dot,
-  .holo-emitter__rig, .holo-emitter__halo { animation: none; }
+  .holo-emitter__rig, .holo-emitter__halo,
+  .holo-emitter__gyro--a, .holo-emitter__gyro--b { animation: none; }
   .holo-sheen { display: none; }
   .holo-emitter__arm,
   .holo-emitter__core,
-  .holo-emitter__ring,
+  .holo-emitter__lens,
+  .holo-emitter__mount,
+  .holo-emitter__rail,
+  .holo-emitter__tip i,
   .holo-emitter__halo,
-  .holo-emitter__arm i::after,
+  .holo-emitter__flare,
+  .holo-emitter__gyro,
   .holo-beam { transition: none; }
   html.robot-cursor,
   html.robot-cursor body,
   html.robot-cursor a,
   html.robot-cursor button { cursor: auto; }
+}
+
+/* ---------- mobile render budget ---------- */
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+  .header.scrolled {
+    background: rgba(7, 11, 22, 0.95);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .about-card,
+  .sound-btn,
+  .nav-links {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .hero-card { animation: none; }
+  .editor { will-change: auto; }
+  .reveal {
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .bg-glow span { will-change: auto; }
+  .holo-halo,
+  .holo-flash,
+  .holo-base,
+  .holo-emitter__halo { filter: none; }
+  .holo-beam {
+    filter: none;
+    mix-blend-mode: normal;
+    opacity: 0;
+  }
+  .holo-stage.is-lit .holo-beam { opacity: 0.5; }
+  .holo-sheen { display: none; }
+  .holo-glow,
+  .holo-print,
+  .holo-flash { mix-blend-mode: normal; }
+  .holo-face::after { mix-blend-mode: normal; opacity: 0.6; }
+  /* One blinking bezel + static frame glow: far less compositing than
+     animating six large glow layers while the page moves. */
+  .holo-stage.is-lit .holo-face::before {
+    animation: none;
+    opacity: 0.5;
+  }
+  .holo-face--left::before,
+  .holo-face--right::before,
+  .holo-face--top::before,
+  .holo-face--bottom::before { display: none; }
+  .holo-face::before {
+    box-shadow:
+      inset 0 0 22px rgba(56, 189, 248, 0.26),
+      0 0 16px rgba(56, 189, 248, 0.3);
+  }
+  .holo-content::after {
+    box-shadow:
+      0 0 16px rgba(56, 189, 248, 0.42),
+      0 0 42px rgba(56, 189, 248, 0.18),
+      inset 0 0 14px rgba(56, 189, 248, 0.18);
+  }
+  .holo-orbit { will-change: auto; }
+  .holo-emitter__gyro--c { display: none; }
+  .holo-dust span:nth-child(n + 6) { display: none; }
+  .bg-sq.lit {
+    box-shadow:
+      0 0 10px rgba(56, 189, 248, 0.26),
+      0 0 22px rgba(167, 139, 250, 0.14);
+  }
+  .bg-sq.lit::before { animation-duration: 4.2s; }
+}
+
+/* Only animate the hologram while it is actually on screen. */
+.holo-halo,
+.holo-base,
+.holo-beam,
+.holo-flash,
+.holo-sheen,
+.holo-live-dot,
+.holo-dust span,
+.holo-face::before,
+.holo-content::after {
+  animation-play-state: paused;
+}
+.holo-stage.in-view .holo-halo,
+.holo-stage.in-view .holo-base,
+.holo-stage.in-view .holo-beam,
+.holo-stage.in-view .holo-flash,
+.holo-stage.in-view .holo-sheen,
+.holo-stage.in-view .holo-live-dot,
+.holo-stage.in-view .holo-dust span,
+.holo-stage.in-view .holo-face::before,
+.holo-stage.in-view .holo-content::after {
+  animation-play-state: running;
 }

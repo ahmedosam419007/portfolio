@@ -100,15 +100,32 @@
   var header = $("#header");
   var progress = $("#scrollProgress");
   var root = document.documentElement;
+  var scrollMax = 1;
+  var headerLit = false;
+
+  /* Cache the page length instead of reading scrollHeight on every scroll
+     event (that read forces a fresh layout on mobile). */
+  function measureScroll() {
+    scrollMax = Math.max(1, root.scrollHeight - root.clientHeight);
+  }
+  measureScroll();
+  window.addEventListener("resize", measureScroll, { passive: true });
+  window.addEventListener("load", measureScroll);
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(measureScroll).observe(document.body);
+  }
 
   function onScroll() {
     var y = window.scrollY || root.scrollTop;
-    if (header) header.classList.toggle("scrolled", y > 10);
+    var lit = y > 10;
+    if (header && lit !== headerLit) {
+      headerLit = lit;
+      header.classList.toggle("scrolled", lit);
+    }
 
     if (progress) {
-      var max = root.scrollHeight - root.clientHeight;
-      var pct = max > 0 ? (y / max) * 100 : 0;
-      progress.style.width = pct + "%";
+      var pct = y > scrollMax ? 1 : y / scrollMax;
+      progress.style.transform = "scaleX(" + pct.toFixed(4) + ")";
     }
   }
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -178,6 +195,9 @@
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  /* Phones / small screens skip the scroll-linked 3D camera work: every
+     per-frame style write there costs a repaint on a mid-range GPU. */
+  var liteMode = window.innerWidth <= 900 || !finePointer;
   var root = document.documentElement;
 
   /* ---------- robot cursor ---------- */
@@ -396,8 +416,6 @@
   var holoScans = document.querySelectorAll(".holo-scan");
   var scrollTicking = false;
 
-  if (holoFrame) holoFrame.style.setProperty("--holo-cut", "100%");
-
   function setHoloView() {
     if (!holoCube) return;
     holoCube.style.setProperty("--hl-w", holoCube.clientWidth + "px");
@@ -407,14 +425,22 @@
 
   setHoloView();
 
+  function lightUpStage() {
+    if (!holoStage || holoStage.classList.contains("is-lit")) return;
+    holoStage.classList.add("is-lit");
+    holoStage.classList.add("is-scrolling");
+  }
+
   if (holoStage && "IntersectionObserver" in window) {
     new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         holoStage.classList.toggle("in-view", entry.isIntersecting);
+        if (entry.isIntersecting) lightUpStage();
       });
     }, { threshold: 0.12 }).observe(holoStage);
   } else if (holoStage) {
     holoStage.classList.add("in-view");
+    lightUpStage();
   }
 
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
@@ -423,36 +449,33 @@
     scrollTicking = false;
     var y = window.scrollY || root.scrollTop;
 
-    root.style.setProperty("--sy", String(Math.round(y)));
+    if (!liteMode) {
+      root.style.setProperty("--sy", String(Math.round(y)));
 
-    if (hero && !reduceMotion && y < 1400) {
-      hero.style.transform = "translate3d(0," + (y * 0.055).toFixed(1) + "px,0)";
-      hero.style.opacity = String(1 - Math.min(y / 1200, 0.35));
-    }
-
-    if (holoSection && holoFrame) {
-      var rect = holoSection.getBoundingClientRect();
-      var vh = window.innerHeight || root.clientHeight;
-      var progress = clamp01((vh - rect.top) / (rect.height + vh));
-      var ry = -14 + progress * 28;
-
-      holoFrame.style.setProperty("--hry", ry.toFixed(2) + "deg");
-
-      var reveal = clamp01((vh - rect.top - rect.height * 0.08) / (vh * 0.95));
-      holoFrame.style.setProperty("--holo-cut", ((1 - reveal) * 100).toFixed(1) + "%");
-
-      for (var si = 0; si < holoScans.length; si++) {
-        holoScans[si].style.top = (reveal * 100).toFixed(1) + "%";
-        holoScans[si].style.opacity = reveal > 0 && reveal < 1 ? "1" : "0";
+      if (hero && !reduceMotion && y < 1400) {
+        hero.style.transform = "translate3d(0," + (y * 0.055).toFixed(1) + "px,0)";
+        hero.style.opacity = String(1 - Math.min(y / 1200, 0.35));
       }
 
-      if (holoStage && !holoStage.classList.contains("is-lit")) {
-        var stageRect = holoStage.getBoundingClientRect();
-        if (stageRect.top < vh * 0.8 && stageRect.bottom > vh * 0.08) {
-          holoStage.classList.add("is-lit");
-          holoStage.classList.add("is-scrolling");
+      if (holoSection && holoFrame) {
+        var rect = holoSection.getBoundingClientRect();
+        var vh = window.innerHeight || root.clientHeight;
+        var progress = clamp01((vh - rect.top) / (rect.height + vh));
+        var ry = -14 + progress * 28;
+
+        holoFrame.style.setProperty("--hry", ry.toFixed(2) + "deg");
+
+        for (var si = 0; si < holoScans.length; si++) {
+          holoScans[si].style.top = (progress * 100).toFixed(1) + "%";
+          holoScans[si].style.opacity = progress > 0 && progress < 1 ? "1" : "0";
         }
       }
+    }
+
+    if (holoStage && !holoStage.classList.contains("is-lit")) {
+      var vh2 = window.innerHeight || root.clientHeight;
+      var stageRect = holoStage.getBoundingClientRect();
+      if (stageRect.top < vh2 * 0.82 && stageRect.bottom > vh2 * 0.06) lightUpStage();
     }
 
     scrollSpark();

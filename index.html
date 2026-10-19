@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://ahmedosam.dev/" />
   <meta property="og:image" content="https://ahmedosam.dev/avatar.jpg" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=5" />
   <script>
     /* Apply saved language before first paint (avoid flash) */
     (function () {
@@ -430,13 +430,48 @@
 
         <div class="holo-emitter" aria-hidden="true">
           <span class="holo-emitter__halo"></span>
+          <span class="holo-emitter__flare"></span>
           <div class="holo-emitter__rig">
-            <span class="holo-emitter__ring"></span>
-            <span class="holo-emitter__core"></span>
-            <span class="holo-emitter__arm" style="--i: 0"><i></i></span>
-            <span class="holo-emitter__arm" style="--i: 1"><i></i></span>
-            <span class="holo-emitter__arm" style="--i: 2"><i></i></span>
+            <span class="holo-emitter__gyro holo-emitter__gyro--a"></span>
+            <span class="holo-emitter__gyro holo-emitter__gyro--b"></span>
+            <span class="holo-emitter__gyro holo-emitter__gyro--c"></span>
+            <span class="holo-emitter__arm" style="--i: 0">
+              <span class="holo-emitter__joint"></span>
+              <span class="holo-emitter__boom">
+                <span class="holo-emitter__panel holo-emitter__panel--back"></span>
+                <span class="holo-emitter__panel holo-emitter__panel--left"></span>
+                <span class="holo-emitter__panel holo-emitter__panel--right"></span>
+                <span class="holo-emitter__panel holo-emitter__panel--front"></span>
+                <span class="holo-emitter__rail"></span>
+                <span class="holo-emitter__tip"><i></i></span>
+              </span>
+            </span>
+            <span class="holo-emitter__arm" style="--i: 1">
+              <span class="holo-emitter__joint"></span>
+              <span class="holo-emitter__boom">
+                <span class="holo-emitter__panel holo-emitter__panel--back"></span>
+                <span class="holo-emitter__panel holo-emitter__panel--left"></span>
+                <span class="holo-emitter__panel holo-emitter__panel--right"></span>
+                <span class="holo-emitter__panel holo-emitter__panel--front"></span>
+                <span class="holo-emitter__rail"></span>
+                <span class="holo-emitter__tip"><i></i></span>
+              </span>
+            </span>
+            <span class="holo-emitter__arm" style="--i: 2">
+              <span class="holo-emitter__joint"></span>
+              <span class="holo-emitter__boom">
+                <span class="holo-emitter__panel holo-emitter__panel--back"></span>
+                <span class="holo-emitter__panel holo-emitter__panel--left"></span>
+                <span class="holo-emitter__panel holo-emitter__panel--right"></span>
+                <span class="holo-emitter__panel holo-emitter__panel--front"></span>
+                <span class="holo-emitter__rail"></span>
+                <span class="holo-emitter__tip"><i></i></span>
+              </span>
+            </span>
           </div>
+          <span class="holo-emitter__core"><i></i></span>
+          <span class="holo-emitter__mount"></span>
+          <span class="holo-emitter__lens"></span>
         </div>
 
         <div class="holo-orbit" id="holoFrame" aria-hidden="true">
@@ -457,7 +492,10 @@
                 </div>
                 <div class="holo-screen">
                   <div class="holo-page holo-page--dark">
-                    <img src="veloro-dark.jpg" alt="" loading="lazy" />
+                    <picture>
+                      <source media="(max-width: 760px)" srcset="veloro-dark-sm.jpg" />
+                      <img src="veloro-dark.jpg" alt="" loading="lazy" decoding="async" />
+                    </picture>
                   </div>
                   <span class="holo-glow"></span>
                   <span class="holo-sheen" aria-hidden="true"></span>
@@ -476,7 +514,10 @@
                 </div>
                 <div class="holo-screen">
                   <div class="holo-page holo-page--light">
-                    <img src="veloro-live.jpg" alt="" loading="lazy" />
+                    <picture>
+                      <source media="(max-width: 760px)" srcset="veloro-live-sm.jpg" />
+                      <img src="veloro-live.jpg" alt="" loading="lazy" decoding="async" />
+                    </picture>
                   </div>
                   <span class="holo-glow"></span>
                   <span class="holo-sheen" aria-hidden="true"></span>
@@ -574,6 +615,6 @@
     <span class="en">Sound</span><span class="ar">صوت</span>
   </button>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>

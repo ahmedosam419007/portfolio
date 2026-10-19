@@ -450,13 +450,7 @@
         var stageRect = holoStage.getBoundingClientRect();
         if (stageRect.top < vh * 0.8 && stageRect.bottom > vh * 0.08) {
           holoStage.classList.add("is-lit");
-          if (reduceMotion) {
-            holoStage.classList.add("is-scrolling");
-          } else {
-            window.setTimeout(function () {
-              if (holoStage) holoStage.classList.add("is-scrolling");
-            }, 4500);
-          }
+          holoStage.classList.add("is-scrolling");
         }
       }
     }
@@ -482,6 +476,7 @@
 
   if (holoSection && holoFrame && finePointer && !reduceMotion) {
     holoSection.addEventListener("pointermove", function (e) {
+      if (holoStage && holoStage.classList.contains("is-dragging")) return;
       var r = holoSection.getBoundingClientRect();
       var px = (e.clientX - r.left) / r.width - 0.5;
       var py = (e.clientY - r.top) / r.height - 0.5;
@@ -492,6 +487,82 @@
       holoFrame.style.setProperty("--hpx", "0deg");
       holoFrame.style.setProperty("--hpy", "0deg");
     });
+  }
+
+  /* ---------- hologram drag-to-spin ---------- */
+
+  var holoSpinMs = 44000;
+  var holoDragDegPerPx = 0.55;
+  var holoDrag = null;
+
+  function getHoloSpin() {
+    if (!holoCube || !holoCube.getAnimations) return null;
+    var anims = holoCube.getAnimations();
+    for (var i = 0; i < anims.length; i++) {
+      if (anims[i].animationName === "holoSpin") return anims[i];
+    }
+    return anims.length ? anims[0] : null;
+  }
+
+  function endHoloDrag() {
+    var drag = holoDrag;
+    holoDrag = null;
+    if (!drag) return;
+    if (drag.active && holoStage) holoStage.classList.remove("is-dragging");
+    if (holoStage) {
+      try { holoStage.releasePointerCapture(drag.pointerId); } catch (e) {}
+    }
+  }
+
+  function onHoloDragEnd(e) {
+    if (holoDrag && e.pointerId === holoDrag.pointerId) endHoloDrag();
+  }
+
+  if (holoStage && holoCube && !reduceMotion) {
+    holoStage.addEventListener("pointerdown", function (e) {
+      if (holoDrag) return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      var anim = getHoloSpin();
+      if (!anim) return;
+      holoDrag = {
+        pointerId: e.pointerId,
+        startX: e.clientX,
+        startY: e.clientY,
+        startTime: typeof anim.currentTime === "number" ? anim.currentTime : 0,
+        anim: anim,
+        active: false
+      };
+    });
+
+    holoStage.addEventListener("pointermove", function (e) {
+      if (!holoDrag || e.pointerId !== holoDrag.pointerId) return;
+      var dx = e.clientX - holoDrag.startX;
+      var dy = e.clientY - holoDrag.startY;
+
+      if (!holoDrag.active) {
+        if (Math.abs(dx) < 7 || Math.abs(dx) <= Math.abs(dy)) return;
+        holoDrag.active = true;
+        holoDrag.startTime = typeof holoDrag.anim.currentTime === "number" ? holoDrag.anim.currentTime : 0;
+        holoStage.classList.add("is-dragging");
+        // Touch pointers are already implicitly captured by their target. Moving
+        // capture to the stage fires lostpointercapture on that target and would
+        // end the drag instantly, so only capture mouse and pen explicitly.
+        if (e.pointerType !== "touch") {
+          try { holoStage.setPointerCapture(e.pointerId); } catch (err) {}
+        }
+      }
+
+      if (e.cancelable) e.preventDefault();
+      var delta = dx * holoDragDegPerPx * (holoSpinMs / 360);
+      holoDrag.anim.currentTime = holoDrag.startTime + delta;
+    }, { passive: false });
+
+    window.addEventListener("pointerup", onHoloDragEnd, true);
+    window.addEventListener("pointercancel", onHoloDragEnd, true);
+    holoStage.addEventListener("lostpointercapture", function (e) {
+      if (holoDrag && holoDrag.pointerId === e.pointerId) endHoloDrag();
+    });
+    holoStage.addEventListener("dragstart", function (e) { e.preventDefault(); });
   }
 
   /* ---------- ambient sound ---------- */

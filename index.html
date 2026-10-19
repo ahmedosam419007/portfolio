@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://ahmedosam.dev/" />
   <meta property="og:image" content="https://ahmedosam.dev/avatar.jpg" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=4" />
   <script>
     /* Apply saved language before first paint (avoid flash) */
     (function () {
@@ -410,13 +410,13 @@
       </h2>
       <p class="holo-lead reveal">
         <span class="en">
-          VELORO's live site sealed inside a rotating glass prism — the dark hero
-          on the front, the light pages scrolling on the back, and a
-          projector-style power-on that settles before the tour begins.
+          A three-armed projector unfolds above the glass prism and beams VELORO's
+          live site into it — the dark pages scroll on the front, the light pages
+          scroll on the back.
         </span>
         <span class="ar">
-          موقع VELORO الحقيقي جوه مجسم زجاجي بيلف — الوش الدارك قدام، والصفحات
-          اللايت بتسكرول ورا، وبيتشغّل زي البروجيكتور ويثبت قبل ما يبدأ يعرض.
+          بروجيكتور بثلاث أذرع بيفتح فوق المجسم الزجاجي وبيعرض موقع VELORO جواه —
+          وش دارك قدام بيسكرول، ووش لايت ورا بيسكرول.
         </span>
       </p>
       <div class="holo-stage" id="holoStage">
@@ -424,6 +424,21 @@
         <span class="holo-beam" aria-hidden="true"></span>
         <span class="holo-base" aria-hidden="true"></span>
         <span class="holo-flash" aria-hidden="true"></span>
+        <span class="holo-pulse" style="--p: 0" aria-hidden="true"></span>
+        <span class="holo-pulse" style="--p: 1" aria-hidden="true"></span>
+        <span class="holo-pulse" style="--p: 2" aria-hidden="true"></span>
+
+        <div class="holo-emitter" aria-hidden="true">
+          <span class="holo-emitter__halo"></span>
+          <div class="holo-emitter__rig">
+            <span class="holo-emitter__ring"></span>
+            <span class="holo-emitter__core"></span>
+            <span class="holo-emitter__arm" style="--i: 0"><i></i></span>
+            <span class="holo-emitter__arm" style="--i: 1"><i></i></span>
+            <span class="holo-emitter__arm" style="--i: 2"><i></i></span>
+          </div>
+        </div>
+
         <div class="holo-orbit" id="holoFrame" aria-hidden="true">
           <div class="holo-cube" id="holoCube">
             <span class="holo-face holo-face--front"></span>
@@ -449,6 +464,7 @@
                   <span class="holo-scan" aria-hidden="true"></span>
                 </div>
               </div>
+              <span class="holo-print" aria-hidden="true"></span>
             </div>
 
             <div class="holo-content holo-content--back">
@@ -467,6 +483,7 @@
                   <span class="holo-scan" aria-hidden="true"></span>
                 </div>
               </div>
+              <span class="holo-print" aria-hidden="true"></span>
             </div>
           </div>
         </div>
@@ -476,8 +493,8 @@
         </div>
       </div>
       <p class="holo-note">
-        <span class="en">Live site: <a href="https://veloro.ahmed-osam419007.workers.dev/" target="_blank" rel="noopener">veloro.ahmed-osam419007.workers.dev</a></span>
-        <span class="ar">الموقع الحقيقي: <a href="https://veloro.ahmed-osam419007.workers.dev/" target="_blank" rel="noopener">veloro.ahmed-osam419007.workers.dev</a></span>
+        <span class="en">Drag the prism to spin it · Live site: <a href="https://veloro.ahmed-osam419007.workers.dev/" target="_blank" rel="noopener">veloro.ahmed-osam419007.workers.dev</a></span>
+        <span class="ar">اسحب المجسم عشان تلفه · الموقع الحقيقي: <a href="https://veloro.ahmed-osam419007.workers.dev/" target="_blank" rel="noopener">veloro.ahmed-osam419007.workers.dev</a></span>
       </p>
     </section>
   </main>
@@ -557,6 +574,6 @@
     <span class="en">Sound</span><span class="ar">صوت</span>
   </button>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>
